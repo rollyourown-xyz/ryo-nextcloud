@@ -14,11 +14,38 @@
     state: directory
     mode: '0755'
 
-## Create directory for project ABC container
 
-# Example
-# - name: Create a directory for <ABC> container mounts
-#   file:
-#     path: "/var/containers/{{ project_id }}/<ABC>"
-#     state: directory
-#     mode: '0755'
+### Nextcloud directories
+
+- name: Create a directory for nextcloud containers
+  file:
+    path: "/var/containers/{{ project_id }}/nextcloud"
+    state: directory
+    mode: '0755'
+
+
+- name: Create a directory for nextcloud container config
+  file:
+    user: www-data
+    group: www-data
+    path: "/var/containers/{{ project_id }}/nextcloud/config"
+    state: directory
+    mode: '0755'
+
+
+- name: Create a directory for nextcloud container data
+  file:
+    user: www-data
+    group: www-data
+    path: "/var/containers/{{ project_id }}/nextcloud/data"
+    state: directory
+    mode: '0755'
+
+
+- name: Create a directory for nextcloud custom apps
+  file:
+    user: www-data
+    group: www-data
+    path: "/var/containers/{{ project_id }}/nextcloud/custom_apps"
+    state: directory
+    mode: '0755'
