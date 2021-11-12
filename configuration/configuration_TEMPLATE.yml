@@ -11,7 +11,7 @@
 
 # The project ID must be 15 characters or less and should be unique amongst
 # projects
-project_id: <PROJECT ID>
+project_id: ryo-nextcloud-standalone
 
 ## The following will contain settings specific to the project
 ## THE FOLLOWING ARE EXAMPLES
