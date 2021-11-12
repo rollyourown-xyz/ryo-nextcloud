@@ -233,8 +233,8 @@
     mode: 0770
     owner: root
     group: root
-    dest: /usr/local/bin/update-nextcloud.sh
-    src: update-nextcloud.sh.j2
+    dest: /usr/local/bin/nextcloud-update.sh
+    src: nextcloud-update.sh.j2
     force: yes
 
 
