@@ -28,8 +28,7 @@ errorMessage()
 }
 
 # Default software package versions
-# Add software package versions here, for example grav
-grav_version='1.7.17'
+nextcloud_version='1.7.17'
 
 build_modules='false'
 
@@ -75,10 +74,10 @@ else
 fi
 
 # Project-specific image builds here..., for example
-#echo "Building webserver image on "$hostname""
-#echo "Executing command: packer build -var \"host_id="$hostname"\" -var \"grav_version="$grav_version"\" -var \"version="$version"\" "$SCRIPT_DIR"/image-build/webserver.pkr.hcl"
-#echo ""
-#packer build -var "host_id="$hostname"" -var "grav_version="$grav_version"" -var "version="$version"" "$SCRIPT_DIR"/image-build/webserver.pkr.hcl
-#echo ""
+echo "Building standalone nextcloud image on "$hostname""
+echo "Executing command: packer build -var \"host_id="$hostname"\" -var \"nextcloud_version="$nextcloud_version"\" -var \"version="$version"\" "$SCRIPT_DIR"/image-build/nextcloud.pkr.hcl"
+echo ""
+packer build -var "host_id="$hostname"" -var "nextcloud_version="$nextcloud_version"" -var "version="$version"" "$SCRIPT_DIR"/image-build/nextcloud.pkr.hcl
+echo ""
 
 echo "Completed"
