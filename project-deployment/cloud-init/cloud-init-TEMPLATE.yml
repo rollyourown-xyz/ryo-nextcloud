@@ -1,6 +1,0 @@
-#cloud-config TEMPLATE FILE IF NEEDED
-package_upgrade: false
-runcmd:
-  # Initialise COMPONENT on first boot from initialisation script added during image build
-  - /usr/local/bin/COMPONENT-initialise.sh
-  
