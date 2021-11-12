@@ -1,0 +1,23 @@
+---
+- name: Install Apache2
+  apt:
+    name:
+    - apache2
+    - apache2-utils
+    update_cache: yes
+    state: present
+
+
+- name: Ensure Apache2 service is enabled
+  service:
+    name: apache2
+    enabled: yes
+
+
+- name: Make the Apache user owner of the web root
+  file:
+    owner: www-data
+    group: www-data
+    path: /var/www
+    state: directory
+    mode: 0755
