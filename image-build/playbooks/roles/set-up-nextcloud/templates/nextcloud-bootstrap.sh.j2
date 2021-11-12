@@ -1,0 +1,30 @@
+#!/bin/sh
+
+# If the file "BOOTSRTAPPED" is *not* already present then run bootstrapping tasks
+if [ ! -f "/var/www/{{ project_nextcloud_domain_name }}/nextcloud/config/BOOTSTRAPPED" ]; then
+  
+  # Copy CAN_INSTALL file from bootstrapping directory to nextcloud/config (preserving ownsership)
+  cp -p /usr/local/bootstrap/CAN_INSTALL /var/www/{{ project_nextcloud_domain_name }}/nextcloud/config/CAN_INSTALL
+  
+  # Copy autoconfig.php from bootstrapping directory to nextcloud/config
+  cp -p /usr/local/bootstrap/autoconfig.php /var/www/{{ project_nextcloud_domain_name }}/nextcloud/config/autoconfig.php
+  
+  # Add file BOOTSTRAPPED to indicate no further bootstrapping needed
+  touch /var/www/{{ project_nextcloud_domain_name }}/nextcloud/config/BOOTSTRAPPED
+  
+  # Copy basic.config.php from bootstrapping directory to nextcloud/config
+  cp -p /usr/local/bootstrap/basic.config.php /var/www/{{ project_nextcloud_domain_name }}/nextcloud/config/basic.config.php
+  
+  # Copy cache.config.php from bootstrapping directory to nextcloud/config
+  cp -p /usr/local/bootstrap/cache.config.php /var/www/{{ project_nextcloud_domain_name }}/nextcloud/config/cache.config.php
+  
+  # Copy email.config.php from bootstrapping directory to nextcloud/config
+  cp -p /usr/local/bootstrap/email.config.php /var/www/{{ project_nextcloud_domain_name }}/nextcloud/config/email.config.php
+  
+  # Copy cronjob file from update directory to /etc/cron.d/
+  cp -p /usr/local/bootstrap/nextcloud_housekeeping_cronjob /etc/cron.d/nextcloud_housekeeping_cronjob
+  
+  # Restart cron service
+  /etc/init.d/cron restart
+  
+fi

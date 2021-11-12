@@ -1,0 +1,12 @@
+<?php
+$AUTOCONFIG = array (
+  "dbtype"        => "mysql",
+  "dbname"        => "nextcloud",
+  "dbhost"        => "mariadb.service.ryo:3306",
+  "dbtableprefix" => "oc_",
+  "dbuser"        => "nextcloud-db-user",
+  "dbpass"        => "{{ mariadb_nextcloud_user_password }}",
+  "adminlogin"    => "{{ project_admin_username }}",
+  "adminpass"     => "{{ project_admin_password }}",
+  "directory"     => '/var/www/{{ project_nextcloud_domain_name }}/nextcloud-data',
+);

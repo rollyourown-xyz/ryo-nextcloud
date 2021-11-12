@@ -1,0 +1,13 @@
+<?php
+$CONFIG = array (
+  'mail_smtpmode' => 'smtp',
+  'mail_smtpsecure' => {% if project_smtp_server_ssl %}'ssl'{% elif project_smtp_server_starttls %}'tls'{% else %}''{% end if %},
+  'mail_from_address' => 'no-reply',
+  'mail_domain' => '{{ project_nextcloud_domain_name }}',
+  'mail_smtpauth' => true,
+  'mail_smtpauthtype' => 'LOGIN',
+  'mail_smtphost' => '{{ project_smtp_server }}',
+  'mail_smtpport' => '{{ project_smtp_server_port }}',
+  'mail_smtpname' => '{{ project_smtp_server_username }}',
+  'mail_smtppassword' => '{{ project_smtp_server_password }}',
+);

@@ -1,0 +1,380 @@
+---
+
+# Copy nextcloud-services consul service configuration file
+#
+- name: Copy nextcloud-services consul service configuration file
+  copy:
+    mode: 0640
+    owner: consul
+    group: consul
+    dest: /etc/consul.d/nextcloud-services.hcl
+    src: nextcloud-services.hcl
+    force: yes
+
+
+# Copy apache2.conf
+#
+- name: Copy apache2.conf
+  copy:
+    mode: 0644
+    owner: root
+    group: root
+    dest: /etc/apache2/apache2.conf
+    src: apache2.conf
+    force: yes
+
+
+# Copy nextcloud.conf
+#
+- name: Copy nextcloud.conf
+  template:
+    mode: 0644
+    owner: root
+    group: root
+    dest: /etc/apache2/sites-available/nextcloud.conf
+    src: nextcloud.conf.j2
+    force: yes
+
+
+# Enable nextcloud
+#
+- name: Enable nextcloud
+  shell: /usr/sbin/a2ensite nextcloud.conf
+
+
+# Disable default site
+- name: Disable default site
+  shell: /usr/sbin/a2dissite 000-default.conf
+
+
+# Create directory for bootstrapping
+#
+- name: Create the /usr/local/bootstrap directory
+  file:
+    path: /usr/local/bootstrap
+    state: directory
+    mode: 0755
+
+
+# Copy CAN_INSTALL file from nextcloud/config to bootstrapping directory
+#
+- name: Copy CAN_INSTALL
+  copy:
+    mode: 0644
+    owner: www-data
+    group: www-data
+    dest: /usr/local/bootstrap/CAN_INSTALL
+    src: /var/www/{{ project_nextcloud_domain_name }}/nextcloud/config/CAN_INSTALL
+    remote_src: yes
+    force: yes
+
+
+# Remove the file CAN_INSTALL from the nextcloud/config directory
+#
+- name: Remove CAN_INSTALL from the nextcloud config directory
+  file:
+    path: /var/www/{{ project_nextcloud_domain_name }}/nextcloud/config/CAN_INSTALL
+    state: absent
+
+
+# Check existence of a previously generated mariadb user password for nextcloud
+#
+- name: Check existence of a previously generated mariadb user password for nextcloud
+  delegate_to: localhost
+  stat:
+    path: "{{ playbook_dir }}/../../configuration/mariadb_nextcloud_user_password_{{ host_id }}.yml"
+  register: mariadb_nextcloud_user_password_file
+
+
+# Load the mariadb user password for nextcloud from previously created file (if previously generated)
+#
+- name: Load the mariadb user password for nextcloud from previously created file
+  include_vars:
+    file: "{{ playbook_dir }}/../../configuration/mariadb_nextcloud_user_password_{{ host_id }}.yml"
+  when: mariadb_nextcloud_user_password_file.stat.exists
+
+
+# Generate a random string as mariadb user password for nextcloud (if not previously generated)
+#
+- name: Generate a random string as mariadb user password for nextcloud
+  shell: "tr -dc A-Za-z0-9 </dev/urandom | head -c 24"
+  register: mariadb_nextcloud_user_password_stdout
+  when: not mariadb_nextcloud_user_password_file.stat.exists
+
+
+# Assign the mariadb user password for nextcloud to the variable mariadb_nextcloud_user_password (if not previously generated)
+#
+- name: Assign the mariadb user password for nextcloud to the variable mariadb_nextcloud_user_password
+  set_fact:
+    mariadb_nextcloud_user_password: "{{ mariadb_nextcloud_user_password_stdout.stdout }}"
+  when: not mariadb_nextcloud_user_password_file.stat.exists
+
+
+# Write the mariadb user password for nextcloud to a file in the module configuration directory on the local machine (if not previously generated)
+#
+- name: Write the mariadb user password for nextcloud to a file in the module configuration directory
+  delegate_to: localhost
+  template:
+    mode: 0640
+    owner: "{{ local_non_root_user }}"
+    group: "{{ local_non_root_user }}"
+    dest: "{{ playbook_dir }}/../../configuration/mariadb_nextcloud_user_password_{{ host_id }}.yml"
+    src: mariadb_nextcloud_user_password.yml.j2
+    force: yes
+    backup: yes
+  when: not mariadb_nextcloud_user_password_file.stat.exists
+
+
+# Copy autoconfig.php to bootstrapping directory
+#
+- name: Copy autoconfig.php
+  template:
+    mode: 0640
+    owner: www-data
+    group: www-data
+    dest: /usr/local/bootstrap/autoconfig.php
+    src: autoconfig.php.j2
+    force: yes
+
+
+# Copy basic.config.php to bootstrapping directory
+#
+- name: Copy basic.config.php
+  template:
+    mode: 0640
+    owner: www-data
+    group: www-data
+    dest: /usr/local/bootstrap/basic.config.php
+    src: basic.config.php.j2
+    force: yes
+
+
+# Copy cache.config.php to bootstrapping directory
+#
+- name: Copy cache.config.php
+  copy:
+    mode: 0640
+    owner: www-data
+    group: www-data
+    dest: /usr/local/bootstrap/cache.config.php
+    src: cache.config.php
+    force: yes
+
+
+# Copy email.config.php to bootstrapping directory
+#
+- name: Copy email.config.php
+  template:
+    mode: 0640
+    owner: www-data
+    group: www-data
+    dest: /usr/local/bootstrap/email.config.php
+    src: email.config.php.j2
+    force: yes
+
+
+# Remove the file config.sample.php from the nextcloud/config directory
+#
+- name: Remove config.sample.php from the nextcloud config directory
+  file:
+    path: /var/www/{{ project_nextcloud_domain_name }}/nextcloud/config/config.sample.php
+    state: absent
+
+
+# Copy cronjob to bootstrap directory
+#
+- name: Copy cronjob file
+  template:
+    mode: 0640
+    owner: root
+    group: root
+    dest: /usr/local/bootstrap/nc_housekeeping_cronjob
+    src: nc_housekeeping_cronjob.j2
+    force: yes
+
+
+# Copy bootstrapping script 
+#
+- name: Copy bootstrapping script
+  template:
+    mode: 0770
+    owner: root
+    group: root
+    dest: /usr/local/bin/nextcloud-bootstrap.sh
+    src: nextcloud-bootstrap.sh.j2
+    force: yes
+
+
+# Create directory for updating
+#
+- name: Create the /usr/local/update directory
+  file:
+    path: /usr/local/update
+    state: directory
+    mode: 0755
+
+
+# Copy maintenance.config.php to update directory
+#
+- name: Copy maintenance.config.php
+  copy:
+    mode: 0640
+    owner: www-data
+    group: www-data
+    dest: /usr/local/update/maintenance.config.php
+    src: maintenance.config.php
+    force: yes
+
+
+# Copy update script 
+#
+- name: Copy update script
+  template:
+    mode: 0770
+    owner: root
+    group: root
+    dest: /usr/local/bin/update-nextcloud.sh
+    src: update-nextcloud.sh.j2
+    force: yes
+
+
+# Copy cronjob to bootstrap directory
+#
+- name: Copy cronjob file
+  template:
+    mode: 0640
+    owner: root
+    group: root
+    dest: /usr/local/update/nc_housekeeping_cronjob
+    src: nc_housekeeping_cronjob.j2
+    force: yes
+
+
+
+
+
+
+
+# OPcache settings
+#
+
+- name: Change opcache.enable_cli in apache php configuration 
+  lineinfile:
+    dest: /etc/php/7.4/apache2/php.ini
+    regexp: '^;opcache.enable_cli'
+    line: "opcache.enable_cli=1"
+    state: present
+
+- name: Change opcache.memory_consumption in apache php configuration 
+  lineinfile:
+    dest: /etc/php/7.4/apache2/php.ini
+    regexp: '^;opcache.memory_consumption'
+    line: "opcache.memory_consumption=128"
+    state: present
+
+- name: Change opcache.interned_strings_buffer in apache php configuration 
+  lineinfile:
+    dest: /etc/php/7.4/apache2/php.ini
+    regexp: '^;opcache.interned_strings_buffer'
+    line: "opcache.interned_strings_buffer=8"
+    state: present
+
+- name: Change opcache.max_accelerated_files in apache php configuration 
+  lineinfile:
+    dest: /etc/php/7.4/apache2/php.ini
+    regexp: '^;opcache.max_accelerated_files'
+    line: "opcache.max_accelerated_files=10000"
+    state: present
+
+- name: Change opcache.revalidate_freq in apache php configuration 
+  lineinfile:
+    dest: /etc/php/7.4/apache2/php.ini
+    regexp: '^;opcache.revalidate_freq'
+    line: "opcache.revalidate_freq=1"
+    state: present
+
+- name: Change opcache.save_comments in apache php configuration 
+  lineinfile:
+    dest: /etc/php/7.4/apache2/php.ini
+    regexp: '^;opcache.save_comments'
+    line: "opcache.save_comments=1"
+    state: present
+
+- name: Change upload_max_filesize in apache php configuration 
+  lineinfile:
+    dest: /etc/php/7.4/apache2/php.ini
+    regexp: '^upload_max_filesize'
+    line: "upload_max_filesize = 4096M"
+    state: present
+
+- name: Change post_max_size in apache php configuration 
+  lineinfile:
+    dest: /etc/php/7.4/apache2/php.ini
+    regexp: '^post_max_size'
+    line: "post_max_size = 5016M"
+    state: present
+
+- name: Change memory_limit in apache php configuration 
+  lineinfile:
+    dest: /etc/php/7.4/apache2/php.ini
+    regexp: '^memory_limit'
+    line: "memory_limit = 512M"
+    state: present
+
+- name: Add APC block in apache php configuration
+  blockinfile:
+    path: /etc/php/7.4/apache2/php.ini
+    insertafter: EOF
+    marker: "; {mark} ANSIBLE MANAGED BLOCK"
+    block: |
+      [apc]
+      apc.enable_cli=1
+      apc.shm_size=1024M
+    state: present
+
+
+# Tune php-fpm
+#
+
+- name: Change pm.max_children in php-fpm configuration 
+  lineinfile:
+    dest: /etc/php/7.4/fpm/pool.d/www.conf
+    regexp: '^pm.max_children'
+    line: "pm.max_children = 120"
+    state: present
+
+- name: Change pm.start_servers in php-fpm configuration 
+  lineinfile:
+    dest: /etc/php/7.4/fpm/pool.d/www.conf
+    regexp: '^pm.start_servers'
+    line: "pm.start_servers = 12"
+    state: present
+
+- name: Change pm.min_spare_servers in php-fpm configuration 
+  lineinfile:
+    dest: /etc/php/7.4/fpm/pool.d/www.conf
+    regexp: '^pm.min_spare_servers'
+    line: "pm.min_spare_servers = 6"
+    state: present
+
+- name: Change pm.max_spare_servers in php-fpm configuration 
+  lineinfile:
+    dest: /etc/php/7.4/fpm/pool.d/www.conf
+    regexp: '^pm.max_spare_servers'
+    line: "pm.max_spare_servers = 18"
+    state: present
+
+
+# Set up nextcloud cron job
+#
+- name: Set up nextcloud cron job
+  cron:
+    name: "nextcloud cron"
+    user: www-data
+    month: "*"
+    day: "*"
+    weekday: "*"
+    hour: "*"
+    minute: "*/5"
+    job: "php --define apc.enable_cli=1 -f /var/www/{{ project_nextcloud_domain_name }}/nextcloud/cron.php"
+    state: present

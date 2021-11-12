@@ -1,0 +1,29 @@
+<?php
+$CONFIG = array (
+  'trusted_domains' => [
+    'localhost',
+    '{{ project_nextcloud_domain_name }}',
+  ],
+  'trusted_proxies' => [
+    '{{ lxd_host_network_part }}.{{ haproxy_ip_addr_host_part }}',
+  ],
+  'overwriteprotocol' => 'https',
+  'overwrite.cli.url' => 'https://{{ project_nextcloud_domain_name }}',
+  'htaccess.RewriteBase' => '/',
+  'upgrade.disable-web' => true,
+  'simpleSignUpLink.shown' => false,
+  'default_locale' => '{{ project_default_locale }}_{{ project_default_country_code }}',
+  'default_phone_region' => '{{ project_default_country_code }}',
+  'apps_paths' => [
+    [
+      'path'     => OC::$SERVERROOT . '/apps',
+      'url'      => '/apps',
+      'writable' => false,
+    ],
+    [
+      'path'     => OC::$SERVERROOT . '/apps-custom',
+      'url'      => '/apps-custom',
+      'writable' => true,
+    ],
+  ],
+);

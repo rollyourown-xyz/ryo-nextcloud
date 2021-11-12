@@ -13,13 +13,49 @@
 # projects
 project_id: ryo-nextcloud-standalone
 
-## The following will contain settings specific to the project
-## THE FOLLOWING ARE EXAMPLES
+# Set the nextcloud server (sub)domain to be used for the project - for example nextcloud.example.com
+# The DNS A record for the nextcloud server (sub)domain must be set to point to the public IPv4 address
+# of your host server
+# It is recommended to use a subdomain for the nextcloud service. If a domain is used *without* a 
+# subdomain (e.g. plain example.com), then no other web services can be made available under that domain
+project_nextcloud_domain_name: <SUBDOMAIN>.<DOMAIN>
 
-# Set the domain to be used for the project. The DNS A record for the project's 
-# domain must be set to point to the public IPv4 address of your host server
-project_domain_name: <DOMAIN>
+# Enter a username for the administrator of this project, 
+# This will be the username of the nextcloud administrator account
+project_admin_username: <USERNAME>
+
+# Enter a password for the administrator of this project.
+# !!! The password should have a minimum of 12 characters with at least
+# !!! 1 upper case character, 1 lower case character and 1 numerical digit
+# This password will be the password for the nextcloud administrator account
+project_admin_password: <PASSWORD>
 
 # Enter an email address for the administrator of this project, 
-# this will be used for letsencrypt certificates
+# this will be used for letsencrypt certificates and for the nextcloud
+# administrator account
 project_admin_email: <EMAIL ADDRESS>
+
+
+
+
+# SMTP Server settings
+# An email server account is needed for sending user account emails (e.g. password reset, notifications)
+# to users of the nextcloud server deployed by the project. The parameters for the SMTP server should
+# be available from your domain and email hosting provider
+project_smtp_server: <SMTP SERVER NAME>
+project_smtp_server_port: <PORT NUMBER>
+project_smtp_server_starttls: <true OR false, depending on the SMTP server configuration>
+project_smtp_server_ssl: <true OR false, depending on the SMTP server configuration>
+
+# SMTP Account settings
+# The user account for the SMTP server should be available from your domain and email hosting provider
+project_smtp_server_username: <USERNAME>
+project_smtp_server_password: <PASSWORD>
+
+# Select the default language code locale for the nextcloud server, where the language
+# code is an ISO-369-1 Alpha-2 code (e.g. "en", "fr", "de")
+project_default_locale: en
+
+# Change the default country code for the nextcloud server, where the country code is
+# an ISO-3166-1 Alpha-2 code (e.g. "GB", "FR", "DE")
+project_default_country_code: GB
