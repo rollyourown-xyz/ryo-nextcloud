@@ -1,0 +1,15 @@
+---
+
+# Set up nextcloud cron job
+#
+- name: Set up nextcloud cron job
+  cron:
+    name: "nextcloud cron"
+    user: www-data
+    month: "*"
+    day: "*"
+    weekday: "*"
+    hour: "*"
+    minute: "*/5"
+    job: "php -f /var/www/{{ project_domain_name }}/nextcloud/cron.php"
+    state: present
