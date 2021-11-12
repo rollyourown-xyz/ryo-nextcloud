@@ -36,8 +36,8 @@ $IPT -A INPUT -p udp -m udp --dport 8301 -j ACCEPT
 $IPT -A INPUT -p tcp -m tcp --dport 8301 -j ACCEPT
 
 
-## <PROJECT> Rules
-##################
+## Nextcloud HTTP Rules
+#######################
 
-# E.g. Allow HTTP
+# Allow HTTP
 $IPT -A INPUT -p tcp -m tcp --dport 80 -j ACCEPT
