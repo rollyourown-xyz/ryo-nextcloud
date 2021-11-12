@@ -52,14 +52,23 @@ then
    errorMessage
 fi
 
-# Common to almost all projects - service proxy module
-# Remove if not needed for this project
-# Build module images if -m flag is present
+# Build ryo-service-proxy module images if -m flag is present
 if [ $build_modules == 'true' ]
 then
    echo "Running build-images script for ryo-service-proxy module on "$hostname""
    echo ""
    "$SCRIPT_DIR"/../ryo-service-proxy/build-images.sh -n "$hostname" -v "$version"
+else
+   echo "Skipping image build for modules"
+   echo ""
+fi
+
+# Build ryo-mariadb module images if -m flag is present
+if [ $build_modules == 'true' ]
+then
+   echo "Running build-images script for ryo-mariadb module on "$hostname""
+   echo ""
+   "$SCRIPT_DIR"/../ryo-mariadb/build-images.sh -n "$hostname" -v "$version"
 else
    echo "Skipping image build for modules"
    echo ""
