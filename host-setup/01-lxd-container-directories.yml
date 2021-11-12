@@ -1,0 +1,25 @@
+---
+- name: Set up project-specific LXD container directories on the host
+  hosts: host_wireguard_ip
+  
+  vars_files:
+      # Control node configuration
+    - "{{ playbook_dir }}/../../ryo-control-node/configuration/configuration.yml"
+    # Host configuration
+    - "{{ playbook_dir }}/../../ryo-host/configuration/configuration_{{ host_id }}.yml"
+    # Project configuration
+    - "{{ playbook_dir }}/../configuration/configuration_{{ host_id }}.yml"
+
+  vars:
+    ansible_port: "{{ host_new_ssh_port }}"
+    ansible_user: "{{ host_non_root_user }}"
+    ansible_ssh_pass: "{{ host_non_root_user_password }}"
+    ansible_ssh_private_key_file: "{{ local_non_root_user_ssh_private_key_file_path }}"
+    ansible_ssh_common_args: '-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
+    ansible_become: yes
+    ansible_become_method: sudo
+    transfer_method: scp  
+  
+  roles:
+    - role: lxd-container-directories-project
+  

@@ -1,0 +1,65 @@
+---
+
+# Create consul data directory
+#
+- name: Create consul data directory
+  file:
+    path: /opt/consul
+    state: directory
+    mode: 0755
+
+
+# Copy consul configuration file
+#
+- name: Copy consul configuration file
+  template:
+    mode: 0640
+    owner: consul
+    group: consul
+    dest: /etc/consul.d/consul.hcl
+    src: consul.hcl.j2
+    force: yes
+
+
+# Copy consul systemd service definition
+#
+- name: Copy consul systemd service definition
+  template:
+    mode: 0644
+    owner: root
+    group: root
+    dest: /lib/systemd/system/consul.service
+    src: consul.service.j2
+    force: yes
+
+
+# Enable consul service - note: **must be state: stopped** during image build so that 
+# the node's UUID is not generated during image build and therefore non-unique
+# in launched instances 
+#
+- name: Enable consul service
+  service:
+    name: consul.service
+    enabled: yes
+    state: stopped
+
+
+# Set up systemd-resolved to resolve local application names via Consul
+#
+
+# Add DNS configuration
+#
+- name: Add DNS configuration
+  lineinfile:
+    dest: /etc/systemd/resolved.conf
+    regexp: '^#DNS='
+    line: "DNS=127.0.0.1"
+
+
+# Add Domains configuration
+#
+- name: Add Domains configuration
+  lineinfile:
+    dest: /etc/systemd/resolved.conf
+    regexp: '^#Domains='
+    line: "Domains=~ryo"

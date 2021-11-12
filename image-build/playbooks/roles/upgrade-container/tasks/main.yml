@@ -1,0 +1,10 @@
+---
+- name: Update package cache and ensure all packages are updated
+  apt:
+    upgrade: 'yes'
+    update_cache: yes
+
+- name: Autoremove unused packages
+  apt:
+    autoremove: yes
+

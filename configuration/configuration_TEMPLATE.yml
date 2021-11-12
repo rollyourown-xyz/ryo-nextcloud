@@ -1,0 +1,25 @@
+## WARNING: After adding configuration, never push this file, with secrets, 
+# to a repository or publish in any other way!
+
+
+#-----------------------
+# REQUIRED Configuration
+#-----------------------
+
+# Project configuration
+#----------------------
+
+# The project ID must be 15 characters or less and should be unique amongst
+# projects
+project_id: <PROJECT ID>
+
+## The following will contain settings specific to the project
+## THE FOLLOWING ARE EXAMPLES
+
+# Set the domain to be used for the project. The DNS A record for the project's 
+# domain must be set to point to the public IPv4 address of your host server
+project_domain_name: <DOMAIN>
+
+# Enter an email address for the administrator of this project, 
+# this will be used for letsencrypt certificates
+project_admin_email: <EMAIL ADDRESS>

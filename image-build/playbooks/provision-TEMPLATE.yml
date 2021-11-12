@@ -1,0 +1,19 @@
+---
+- name: Provision <PROJECT COMPONENT NAME> container image
+  hosts: packer
+
+  vars_files:
+    # Project configuration
+    - "{{ playbook_dir }}/../../configuration/configuration_{{ host_id }}.yml"
+    # Host configuration
+    - "{{ playbook_dir }}/../../../ryo-host/configuration/configuration_{{ host_id }}.yml"
+
+  roles:
+    - role: upgrade-container
+    - role: install-iptables
+    - role: install-consul
+    - role: set-up-firewall
+    - role: set-up-consul
+    # FURTHER ROLES DEPEND ON THE PROJECT
+    - role: install-TEMPLATE
+    - role: set-up-TEMPLATE

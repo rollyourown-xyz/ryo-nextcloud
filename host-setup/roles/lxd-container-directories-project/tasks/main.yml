@@ -1,0 +1,24 @@
+---
+## The generic directory /var/containers/{{ project_id }}
+## for LXD container persistent storage must be created
+## Further project-specific container directories should be
+## added here
+## -----------------------------------------------------------
+
+## Directories for project-specific LXD container persistent storage
+## -----------------------------------------------------------------
+
+- name: Create a directory to mount in module containers
+  file:
+    path: "/var/containers/{{ project_id }}"
+    state: directory
+    mode: '0755'
+
+## Create directory for project ABC container
+
+# Example
+# - name: Create a directory for <ABC> container mounts
+#   file:
+#     path: "/var/containers/{{ project_id }}/<ABC>"
+#     state: directory
+#     mode: '0755'

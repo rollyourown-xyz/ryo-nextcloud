@@ -1,0 +1,6 @@
+---
+packer:
+  hosts:
+    packer-lxd-build
+  vars:
+    ansible_connection: lxd

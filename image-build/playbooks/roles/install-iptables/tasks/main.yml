@@ -1,0 +1,6 @@
+---
+- name: Install iptables
+  apt:
+    name: iptables
+    update_cache: yes
+    state: present

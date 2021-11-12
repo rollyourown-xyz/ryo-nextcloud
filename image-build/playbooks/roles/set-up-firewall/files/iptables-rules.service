@@ -1,0 +1,10 @@
+[Unit]
+Description = Apply base firewall rules
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/iptables-rules.sh
+
+[Install]
+WantedBy=multi-user.target

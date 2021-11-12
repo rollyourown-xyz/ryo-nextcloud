@@ -1,0 +1,19 @@
+---
+- name: Add HashiCorp GPG key
+  apt_key:
+    url: https://apt.releases.hashicorp.com/gpg
+    state: present
+
+
+- name: Add HashiCorp repository
+  apt_repository:
+    repo: 'deb https://apt.releases.hashicorp.com focal main'
+    state: present
+    update_cache: yes
+
+
+- name: Install consul
+  apt:
+    name: consul
+    update_cache: yes
+    state: present

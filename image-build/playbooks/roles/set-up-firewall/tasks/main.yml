@@ -1,0 +1,33 @@
+---
+
+# Copy iptables rules script (making executable)
+#
+- name: Copy firewall rules script
+  copy:
+    mode: 0770
+    owner: root
+    group: root
+    dest: /usr/local/bin/iptables-rules.sh
+    src: iptables-rules.sh
+    force: yes
+
+
+# Copy firewall service definition
+#
+- name: Copy firewall service definition
+  copy:
+    mode: 0644
+    owner: root
+    group: root
+    dest: /lib/systemd/system/iptables-rules.service
+    src: iptables-rules.service
+    force: yes
+
+
+# Enable iptables rules service
+#
+- name: Enable firewall service
+  service:
+    name: iptables-rules.service
+    enabled: yes
+    state: started
