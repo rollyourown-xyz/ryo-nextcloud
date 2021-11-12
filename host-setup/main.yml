@@ -1,3 +1,2 @@
 ---
 - import_playbook: 01-lxd-container-directories.yml
-- import_playbook: 02-TEMPLATE.yml
