@@ -1,0 +1,102 @@
+---
+
+# Install unzip
+#
+- name: Install unzip
+  apt:
+    name: unzip
+    update_cache: yes
+    state: present
+
+
+# Create a directory for the nextcloud installation
+#
+- name: Create a directory for the nextcloud installation
+  file:
+    owner: www-data
+    group: www-data
+    mode: 0755
+    path: /var/www/{{ project_domain_name }}
+    state: directory
+
+
+# Download and unzip nextcloud archive (v{{ nextcloud_version }})
+#
+- name: Download and unzip nextcloud v-{{ nextcloud_version }}
+  unarchive:
+    owner: www-data
+    group: www-data
+    mode: 0755
+    src: https://download.nextcloud.com/server/releases/nextcloud-{{ nextcloud_version }}.zip
+    dest: /var/www/{{ project_domain_name }}/
+    remote_src: yes
+
+
+# Install supporting packages
+#
+- name: Install supporting packages
+  apt:
+    name:
+    - imagemagick
+    - redis-server
+    - openssl
+    - ffmpeg
+    update_cache: yes
+    state: present
+
+
+# Install PHP Modules
+#
+- name: Install PHP Modules
+  apt:
+    name:
+    - php
+    - libapache2-mod-php
+    - php-common
+    - php-fpm
+    - php-gd
+    - php-mysql
+    - php-cli
+    - php-curl
+    - php-mbstring
+    - php-intl
+    - php-gmp
+    - php-bcmath
+    - php-xml
+    - php-zip
+    - php-bz2
+    - php-imap
+    - php-imagick
+    - php-apcu
+    - php-memcached
+    - php-redis
+    - php-dompdf
+    update_cache: yes
+    state: present
+
+
+# Enable Apache modules
+#
+- name: Enable Apache modules
+  shell: /usr/sbin/a2enmod rewrite headers env dir mime
+
+
+# Add the Redis redis user to the www-data group
+#
+- name: Add the Redis redis user to the www-data group
+  user:
+    name: redis
+    groups:
+      - www-data
+    append: yes
+    create_home: no
+    state: present
+
+
+# Enable redis to start on boot
+#
+- name: Enable redis to start on boot
+  service:
+    name: redis-server
+    enabled: yes
+
