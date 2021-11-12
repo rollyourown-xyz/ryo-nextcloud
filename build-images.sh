@@ -13,7 +13,7 @@ helpMessage()
    echo "Flags:"
    echo -e "-m \t\t\t(Optional) Flag to also build images for modules"
    echo -e "-n hostname \t\t(Mandatory) Name of the host for which to build images"
-   echo -e "-g grav_version \t(Optional) Override default grav version to use for the webserver image, e.g. 1.7.17 (default)"
+   echo -e "-c nextcloud_version \t(Optional) Override default nextcloud version to use for the server image, e.g. 22.2.2 (default)"
    echo -e "-v version \t\t(Mandatory) Version stamp to apply to images, e.g. 20210101-1"
    echo -e "-h \t\t\tPrint this help message"
    echo ""
@@ -28,7 +28,7 @@ errorMessage()
 }
 
 # Default software package versions
-nextcloud_version='1.7.17'
+nextcloud_version='22.2.2'
 
 build_modules='false'
 
@@ -39,14 +39,14 @@ do
     case "${flag}" in
         m) build_modules='true';;
         n) hostname=${OPTARG};;
-        g) grav_version=${OPTARG};;
+        c) nextcloud_version=${OPTARG};;
         v) version=${OPTARG};;
         h) helpMessage ;;
         ?) errorMessage ;;
     esac
 done
 
-if [ -z "$hostname" ] || [ -z "$version" ] || [ -z "$grav_version" ]
+if [ -z "$hostname" ] || [ -z "$version" ] || [ -z "$nextcloud_version" ]
 then
    errorMessage
 fi
