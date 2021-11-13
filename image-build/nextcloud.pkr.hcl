@@ -18,10 +18,9 @@ variable "version" {
   type        = string
 }
 
-# ????
-# Specify the consul-template version to use in the image build
-variable "consul_template_version" {
-  description = "Mandatory: The consul-template version to use in the image build."
+# Specify the nextcloud version to use in the image build
+variable "nextcloud_version" {
+  description = "Mandatory: The nextcloud version to use in the image build."
   type        = string
 }
 
@@ -50,7 +49,7 @@ locals {
   build_inventory_file    = "${abspath(path.root)}/playbooks/inventory.yml"
   build_playbook_file     = "${abspath(path.root)}/playbooks/provision-nextcloud.yml"
 
-  build_extra_vars        = "host_id=${var.host_id} module_id=${local.module_id} consul_template_version=${var.consul_template_version}"
+  build_extra_vars        = "host_id=${var.host_id} module_id=${local.module_id} nextcloud_version=${var.nextcloud_version}"
   build_remote_extra_vars = "${ join("", [ "ansible_lxd_remote=", local.remote_lxd_host, " ", local.build_extra_vars ]) }"
 }
 
