@@ -16,7 +16,7 @@
     owner: www-data
     group: www-data
     mode: 0755
-    path: /var/www/{{ project_domain_name }}
+    path: /var/www/{{ project_nextcloud_domain_name }}
     state: directory
 
 
@@ -28,7 +28,7 @@
     group: www-data
     mode: 0755
     src: https://download.nextcloud.com/server/releases/nextcloud-{{ nextcloud_version }}.zip
-    dest: /var/www/{{ project_domain_name }}/
+    dest: /var/www/{{ project_nextcloud_domain_name }}/
     remote_src: yes
 
 

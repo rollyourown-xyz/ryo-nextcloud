@@ -11,5 +11,5 @@
     weekday: "*"
     hour: "*"
     minute: "*/5"
-    job: "php -f /var/www/{{ project_domain_name }}/nextcloud/cron.php"
+    job: "php -f /var/www/{{ project_nextcloud_domain_name }}/nextcloud/cron.php"
     state: present
