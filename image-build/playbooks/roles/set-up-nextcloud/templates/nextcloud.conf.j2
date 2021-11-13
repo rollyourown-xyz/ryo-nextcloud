@@ -1,9 +1,9 @@
 <VirtualHost *:80>
     ServerAdmin {{ project_admin_email }}
     ServerName {{ project_nextcloud_domain_name }}
-    DocumentRoot /var/www/{{ project_nextcloud_domain_name }}
+    DocumentRoot /var/www/{{ project_nextcloud_domain_name }}/nextcloud
 
-    <Directory /var/www/{{ project_nextcloud_domain_name }}/>
+    <Directory /var/www/{{ project_nextcloud_domain_name }}/nextcloud>
         Options FollowSymLinks MultiViews
         Require all granted
         Satisfy Any
@@ -13,8 +13,8 @@
             Dav off
         </IfModule>
         
-        SetEnv HOME /var/www/{{ project_nextcloud_domain_name }}
-        SetEnv HTTP_HOME /var/www/{{ project_nextcloud_domain_name }}
+        SetEnv HOME /var/www/{{ project_nextcloud_domain_name }}/nextcloud
+        SetEnv HTTP_HOME /var/www/{{ project_nextcloud_domain_name }}/nextcloud
     </Directory>
 
     ErrorLog ${APACHE_LOG_DIR}/error.log
