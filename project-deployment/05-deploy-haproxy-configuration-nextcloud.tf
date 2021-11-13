@@ -7,22 +7,22 @@ module "deploy-nextcloud-haproxy-backend-service" {
   non_ssl_backend_services     = [ "nextcloud" ]
 }
 
-module "deploy-nextcloud-http-haproxy-acl-configuration" {
+module "deploy-nextcloud-haproxy-acl-configuration" {
   source = "../../ryo-service-proxy/module-deployment/modules/deploy-haproxy-configuration"
 
   depends_on = [ module.deploy-nextcloud-haproxy-backend-service ]
 
   haproxy_host_only_acls = {
-    host-nextcloud-http = {host = local.project_nextcloud_domain_name}
+    host-nextcloud = {host = local.project_nextcloud_domain_name}
   }
 }
 
-module "deploy-nextcloud-http-haproxy-backend-configuration" {
+module "deploy-nextcloud-haproxy-backend-configuration" {
   source = "../../ryo-service-proxy/module-deployment/modules/deploy-haproxy-configuration"
 
-  depends_on = [ module.deploy-nextcloud-http-haproxy-acl-configuration ]
+  depends_on = [ module.deploy-nextcloud-haproxy-acl-configuration ]
 
   haproxy_acl_use-backends = {
-    host-nextcloud-http = {backend_service = "nextcloud"}
+    host-nextcloud = {backend_service = "nextcloud"}
   }
 }
