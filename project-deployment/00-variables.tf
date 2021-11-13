@@ -16,14 +16,16 @@ variable "image_version" {
 
 # Configuration file paths
 locals {
-  project_configuration = join("", ["${abspath(path.root)}/../configuration/configuration_", var.host_id, ".yml"])
-  host_configuration    = join("", ["${abspath(path.root)}/../../ryo-host/configuration/configuration_", var.host_id, ".yml" ])
+  project_configuration                = join("", ["${abspath(path.root)}/../configuration/configuration_", var.host_id, ".yml"])
+  host_configuration                   = join("", ["${abspath(path.root)}/../../ryo-host/configuration/configuration_", var.host_id, ".yml" ])
+  mariadb_terraform_user_password_file = join("", [ "${abspath(path.root)}/../../ryo-mariadb/configuration/mariadb_terraform_user_password_", var.host_id, ".yml" ])
+  mariadb_nextcloud_user_password_file = join("", [ "${abspath(path.root)}/../configuration/mariadb_gitea_user_password_", var.host_id, ".yml" ])
 }
 
 # Basic project variables
 locals {
-  project_id          = yamldecode(file(local.project_configuration))["project_id"]
-  ## example_variable = yamldecode(file(local.project_configuration))["example"]
+  project_id                    = yamldecode(file(local.project_configuration))["project_id"]
+  project_nextcloud_domain_name = yamldecode(file(local.project_configuration))["project_nextcloud_domain_name"]
 }
 
 # LXD variables
@@ -35,4 +37,17 @@ locals {
 # Consul variables
 locals {
   consul_ip_address  = join("", [ local.lxd_host_network_part, ".1" ])
+}
+
+# Variables from module remote states
+
+data "terraform_remote_state" "ryo-mariadb" {
+  backend = "local"
+  config = {
+    path = join("", ["${abspath(path.root)}/../../ryo-mariadb/module-deployment/terraform.tfstate.d/", var.host_id, "/terraform.tfstate"])
+  }
+}
+
+locals {
+  mariadb_ip_address = data.terraform_remote_state.ryo-mariadb.outputs.mariadb_ip_address
 }
