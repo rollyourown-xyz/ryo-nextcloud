@@ -19,7 +19,7 @@ locals {
   project_configuration                = join("", ["${abspath(path.root)}/../configuration/configuration_", var.host_id, ".yml"])
   host_configuration                   = join("", ["${abspath(path.root)}/../../ryo-host/configuration/configuration_", var.host_id, ".yml" ])
   mariadb_terraform_user_password_file = join("", [ "${abspath(path.root)}/../../ryo-mariadb/configuration/mariadb_terraform_user_password_", var.host_id, ".yml" ])
-  mariadb_nextcloud_user_password_file = join("", [ "${abspath(path.root)}/../configuration/mariadb_gitea_user_password_", var.host_id, ".yml" ])
+  mariadb_nextcloud_user_password_file = join("", [ "${abspath(path.root)}/../configuration/mariadb_nextcloud_user_password_", var.host_id, ".yml" ])
 }
 
 # Basic project variables
