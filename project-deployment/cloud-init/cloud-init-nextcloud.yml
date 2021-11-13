@@ -1,8 +1,8 @@
 #cloud-config TEMPLATE FILE IF NEEDED
 package_upgrade: false
 runcmd:
-  # Bootstrap on first launch from bootstrap script added during image build
-  - /usr/local/bin/nextcloud-bootstrap.sh
-  # Update on subsequent launch from update script added during image build
+  # Execute update script added during image build
   - /usr/local/bin/nextcloud-update.sh
+  # Execute bootstrap script added during image build
+  - /usr/local/bin/nextcloud-bootstrap.sh
   
