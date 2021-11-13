@@ -34,7 +34,7 @@ locals {
 
 # Variables from configuration files
 locals {
-  module_id       = yamldecode(file("${abspath(path.root)}/../configuration/configuration.yml"))["module_id"]
+  project_id      = yamldecode(file("${abspath(path.root)}/../configuration/configuration.yml"))["project_id"]
   remote_lxd_host = var.host_id
 }
 
@@ -49,7 +49,7 @@ locals {
   build_inventory_file    = "${abspath(path.root)}/playbooks/inventory.yml"
   build_playbook_file     = "${abspath(path.root)}/playbooks/provision-nextcloud.yml"
 
-  build_extra_vars        = "host_id=${var.host_id} module_id=${local.module_id} nextcloud_version=${var.nextcloud_version}"
+  build_extra_vars        = "host_id=${var.host_id} project_id_id=${local.project_id_id} nextcloud_version=${var.nextcloud_version}"
   build_remote_extra_vars = "${ join("", [ "ansible_lxd_remote=", local.remote_lxd_host, " ", local.build_extra_vars ]) }"
 }
 
@@ -59,7 +59,7 @@ locals {
 # Computed parameters for the output image
 locals {
   
-  output_image_name        = "${ join("-", [ local.module_id, local.service_name, var.version ]) }"
+  output_image_name        = "${ join("-", [ local.project_id_id, local.service_name, var.version ]) }"
   
   output_image_description = "${ join(" ", [ 
       join(":", [ local.build_image_os , local.build_image_release ]),
