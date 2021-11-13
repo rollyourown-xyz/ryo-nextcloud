@@ -8,7 +8,7 @@
     # Host configuration
     - "{{ playbook_dir }}/../../../ryo-host/configuration/configuration_{{ host_id }}.yml"
     # Service Proxy module configuration
-    - "{{ playbook_dir }}/../../../ryo-service-proxy/configuration/configuration_{{ host_id }}.yml"
+    - "{{ playbook_dir }}/../../../ryo-service-proxy/configuration/configuration.yml"
     # Project configuration
     - "{{ playbook_dir }}/../../configuration/configuration_{{ host_id }}.yml"
 
