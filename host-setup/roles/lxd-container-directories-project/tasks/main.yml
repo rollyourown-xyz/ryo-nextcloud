@@ -26,8 +26,6 @@
 
 - name: Create a directory for nextcloud container config
   file:
-    user: www-data
-    group: www-data
     path: "/var/containers/{{ project_id }}/nextcloud/config"
     state: directory
     mode: '0755'
@@ -35,8 +33,6 @@
 
 - name: Create a directory for nextcloud container data
   file:
-    user: www-data
-    group: www-data
     path: "/var/containers/{{ project_id }}/nextcloud/data"
     state: directory
     mode: '0755'
@@ -44,8 +40,6 @@
 
 - name: Create a directory for nextcloud custom apps
   file:
-    user: www-data
-    group: www-data
     path: "/var/containers/{{ project_id }}/nextcloud/custom_apps"
     state: directory
     mode: '0755'
