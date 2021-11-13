@@ -26,6 +26,15 @@ locals {
 locals {
   project_id                    = yamldecode(file(local.project_configuration))["project_id"]
   project_nextcloud_domain_name = yamldecode(file(local.project_configuration))["project_nextcloud_domain_name"]
+  project_admin_email           = yamldecode(file(local.project_configuration))["project_admin_email"]
+}
+
+# Sensitive variables
+locals {
+  project_admin_password          = sensitive(yamldecode(file(local.project_configuration))["project_admin_password"])
+  project_smtp_server_password    = sensitive(yamldecode(file(local.project_configuration))["project_smtp_server_password"])
+  mariadb_terraform_user_password = sensitive(yamldecode(file(local.mariadb_terraform_user_password_file))["mariadb_terraform_user_password"])
+  mariadb_nextcloud_user_password = sensitive(yamldecode(file(local.mariadb_nextcloud_user_password_file))["mariadb_nextcloud_user_password"])
 }
 
 # LXD variables
