@@ -35,9 +35,6 @@ project_admin_password: <PASSWORD>
 # administrator account
 project_admin_email: <EMAIL ADDRESS>
 
-
-
-
 # SMTP Server settings
 # An email server account is needed for sending user account emails (e.g. password reset, notifications)
 # to users of the nextcloud server deployed by the project. The parameters for the SMTP server should
