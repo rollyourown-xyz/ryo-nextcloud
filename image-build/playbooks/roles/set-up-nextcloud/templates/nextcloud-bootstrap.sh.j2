@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# If the file "BOOTSRTAPPED" is *not* already present then run bootstrapping tasks
+# If the file "BOOTSTRAPPED" is *not* already present then run bootstrapping tasks
 if [ ! -f "/var/www/{{ project_nextcloud_domain_name }}/nextcloud/config/BOOTSTRAPPED" ]; then
   
   # Copy CAN_INSTALL file from bootstrapping directory to nextcloud/config (preserving ownsership)
