@@ -69,6 +69,18 @@ else
    echo ""
 fi
 
+# Deploy ryo-wellknown if -m flag is present
+if [ $deploy_modules == 'true' ]
+then
+   echo "Deploying ryo-wellknown module on "$hostname" using images with version "$version""
+   echo ""
+   "$SCRIPT_DIR"/../ryo-wellknown/deploy-module.sh -n "$hostname" -v "$version"
+   echo ""
+else
+   echo "Skipping modules deployment"
+   echo ""
+fi
+
 
 # Deploy project
 echo "Deploying project on "$hostname" using images with version=$version"

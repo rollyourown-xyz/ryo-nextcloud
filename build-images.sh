@@ -73,7 +73,19 @@ else
    echo ""
 fi
 
-# Project-specific image builds here..., for example
+# Build ryo-wellknown module images if -m flag is present
+if [ $build_modules == 'true' ]
+then
+   echo "Running build-images script for ryo-wellknown module on "$hostname""
+   echo ""
+   "$SCRIPT_DIR"/../ryo-wellknown/build-images.sh -n "$hostname" -v "$version"
+else
+   echo "Skipping image build for modules"
+   echo ""
+fi
+
+
+# Build project images
 echo "Building standalone nextcloud image on "$hostname""
 echo "Executing command: packer build -var \"host_id="$hostname"\" -var \"nextcloud_version="$nextcloud_version"\" -var \"version="$version"\" "$SCRIPT_DIR"/image-build/nextcloud.pkr.hcl"
 echo ""

@@ -62,6 +62,17 @@ else
    "$SCRIPT_DIR"/../ryo-mariadb/host-setup.sh -n "$hostname"
 fi
 
+## Module-specific host setup for ryo-wellknown
+if [ -f ""$SCRIPT_DIR"/../ryo-wellknown/configuration/"$hostname"_playbooks_executed" ]
+then
+   echo "Host setup for ryo-wellknown module has already been done on "$hostname""
+   echo ""
+else
+   echo "Running module-specific host setup script for ryo-wellknown on "$hostname""
+   echo ""
+   "$SCRIPT_DIR"/../ryo-wellknown/host-setup.sh -n "$hostname"
+fi
+
 ## Project-specific host setup
 if [ -f ""$SCRIPT_DIR"/configuration/"$hostname"_playbooks_executed" ]
 then

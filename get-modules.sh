@@ -22,3 +22,13 @@ else
    #git clone https://github.com/rollyourown-xyz/ryo-mariadb ../ryo-mariadb
    git clone https://git.rollyourown.xyz/ryo-projects/ryo-mariadb ../ryo-mariadb
 fi
+
+## Wellknown Server module
+if [ -d "../ryo-wellknown" ]
+then
+   echo "Module ryo-wellknown already cloned to this control node"
+else
+   echo "Cloning ryo-wellknown repository. Executing 'git clone' for ryo-wellknown repository"
+   #git clone https://github.com/rollyourown-xyz/ryo-wellknown ../ryo-wellknown
+   git clone https://git.rollyourown.xyz/ryo-projects/ryo-wellknown ../ryo-wellknown
+fi
