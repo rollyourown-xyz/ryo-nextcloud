@@ -4,7 +4,7 @@
 if [ -f "/var/www/{{ project_nextcloud_domain_name }}/nextcloud/config/BOOTSTRAPPED" ]; then
   
   # Copy maintenance.config.php from update directory to nextcloud/config
-  cp -p /usr/local/update/maintenance.config.php /var/www/{{ nextcloud_domain }}/nextcloud/config/maintenance.config.php
+  cp -p /usr/local/update/maintenance.config.php /var/www/{{ project_nextcloud_domain_name }}/nextcloud/config/maintenance.config.php
   
   # Run nextcloud occ upgrade command
   cd /var/www/{{ project_nextcloud_domain_name }}/nextcloud && sudo -u www-data php --define apc.enable_cli=1 occ upgrade
