@@ -238,21 +238,16 @@
     force: yes
 
 
-# Copy cronjob to bootstrap directory
+# Copy cronjob file to bootstrap directory
 #
-- name: Copy cronjob file
+- name: Copy cronjob file to bootstrap directory
   template:
     mode: 0640
     owner: root
     group: root
-    dest: /usr/local/update/nc_housekeeping_cronjob
-    src: nc_housekeeping_cronjob.j2
+    dest: /usr/local/update/nextcloud_housekeeping_cronjob
+    src: nextcloud_housekeeping_cronjob.j2
     force: yes
-
-
-
-
-
 
 
 # OPcache settings
@@ -367,14 +362,14 @@
 
 # Set up nextcloud cron job
 #
-- name: Set up nextcloud cron job
-  cron:
-    name: "nextcloud cron"
-    user: www-data
-    month: "*"
-    day: "*"
-    weekday: "*"
-    hour: "*"
-    minute: "*/5"
-    job: "php --define apc.enable_cli=1 -f /var/www/{{ project_nextcloud_domain_name }}/nextcloud/cron.php"
-    state: present
+# - name: Set up nextcloud cron job
+#   cron:
+#     name: "nextcloud cron"
+#     user: www-data
+#     month: "*"
+#     day: "*"
+#     weekday: "*"
+#     hour: "*"
+#     minute: "*/5"
+#     job: "php --define apc.enable_cli=1 -f /var/www/{{ project_nextcloud_domain_name }}/nextcloud/cron.php"
+#     state: present
