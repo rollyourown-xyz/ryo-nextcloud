@@ -1,7 +1,7 @@
-#------------------------------------------------------------------
+#------------------------------------------------------------------------------
 # Packer template for building LXD container image for ryo-nextcloud-standalone
 # Ubuntu minimal images are used as base images
-#------------------------------------------------------------------
+#------------------------------------------------------------------------------
 
 ## Input variables
 ##
@@ -34,7 +34,7 @@ locals {
 
 # Variables from configuration files
 locals {
-  project_id      = yamldecode(file("${abspath(path.root)}/../configuration/configuration.yml"))["project_id"]
+  project_id      = yamldecode(file("${abspath(path.root)}/../configuration/configuration_${var.host_id}.yml"))["project_id"]
   remote_lxd_host = var.host_id
 }
 
