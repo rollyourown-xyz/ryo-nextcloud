@@ -1,5 +1,5 @@
 services {
   name = "nextcloud"
-  tags = [ "cloud", "nextcloud" ]
+  tags = [ "webserver", "nextcloud" ]
   port = 80
 }
