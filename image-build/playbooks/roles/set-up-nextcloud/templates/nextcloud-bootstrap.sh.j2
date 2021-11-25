@@ -7,10 +7,7 @@ if [ ! -f "/var/www/{{ project_nextcloud_domain_name }}/nextcloud/config/BOOTSTR
   cp -p /usr/local/bootstrap/CAN_INSTALL /var/www/{{ project_nextcloud_domain_name }}/nextcloud/config/CAN_INSTALL
   
   # Copy autoconfig.php from bootstrapping directory to nextcloud/config
-  cp -p /usr/local/bootstrap/autoconfig.php /var/www/{{ project_nextcloud_domain_name }}/nextcloud/config/autoconfig.php
-  
-  # Add file BOOTSTRAPPED to indicate no further bootstrapping needed
-  touch /var/www/{{ project_nextcloud_domain_name }}/nextcloud/config/BOOTSTRAPPED
+  #cp -p /usr/local/bootstrap/autoconfig.php /var/www/{{ project_nextcloud_domain_name }}/nextcloud/config/autoconfig.php
   
   # Copy basic.config.php from bootstrapping directory to nextcloud/config
   cp -p /usr/local/bootstrap/basic.config.php /var/www/{{ project_nextcloud_domain_name }}/nextcloud/config/basic.config.php
@@ -27,10 +24,16 @@ if [ ! -f "/var/www/{{ project_nextcloud_domain_name }}/nextcloud/config/BOOTSTR
   # Change ownership of the directory /var/www/{{ project_nextcloud_domain_name }}/nextcloud-data
   chown www-data:www-data /var/www/{{ project_nextcloud_domain_name }}/nextcloud-data
   
+  # Run occ maintenance:install to configure database, admin and data directory
+  cd /var/www/{{ project_nextcloud_domain_name }}/nextcloud && sudo -u www-data php occ maintenance:install --database="mysql" --database-name="nextcloud" --database-host="mariadb.service.ryo:3306" --database-user="nextcloud-db-user" --database-pass="{{ mariadb_nextcloud_user_password }}" --admin-user="{{ project_admin_username }}" --admin-pass="{{ project_admin_password }}" --data-dir="/var/www/{{ project_nextcloud_domain_name }}/nextcloud-data"
+  
   # Copy cronjob file from update directory to /etc/cron.d/
   cp -p /usr/local/bootstrap/nextcloud_housekeeping_cronjob /etc/cron.d/nextcloud_housekeeping_cronjob
   
   # Restart cron service
   /etc/init.d/cron restart
+  
+  # Add file BOOTSTRAPPED to indicate no further bootstrapping needed
+  touch /var/www/{{ project_nextcloud_domain_name }}/nextcloud/config/BOOTSTRAPPED
   
 fi
