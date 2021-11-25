@@ -25,7 +25,7 @@ if [ ! -f "/var/www/{{ project_nextcloud_domain_name }}/nextcloud/config/BOOTSTR
   chown www-data:www-data /var/www/{{ project_nextcloud_domain_name }}/nextcloud-data
   
   # Run occ maintenance:install to configure database, admin and data directory
-  cd /var/www/{{ project_nextcloud_domain_name }}/nextcloud && sudo -u www-data php occ maintenance:install --database="mysql" --database-name="nextcloud" --database-host="mariadb.service.ryo:3306" --database-user="nextcloud-db-user" --database-pass="{{ mariadb_nextcloud_user_password }}" --admin-user="{{ project_admin_username }}" --admin-pass="{{ project_admin_password }}" --data-dir="/var/www/{{ project_nextcloud_domain_name }}/nextcloud-data"
+  cd /var/www/{{ project_nextcloud_domain_name }}/nextcloud && sudo -u www-data php --define apc.enable_cli=1 occ maintenance:install --database="mysql" --database-name="nextcloud" --database-host="mariadb.service.ryo:3306" --database-user="nextcloud-db-user" --database-pass="{{ mariadb_nextcloud_user_password }}" --admin-user="{{ project_admin_username }}" --admin-pass="{{ project_admin_password }}" --data-dir="/var/www/{{ project_nextcloud_domain_name }}/nextcloud-data"
   
   # Copy cronjob file from update directory to /etc/cron.d/
   cp -p /usr/local/bootstrap/nextcloud_housekeeping_cronjob /etc/cron.d/nextcloud_housekeeping_cronjob
