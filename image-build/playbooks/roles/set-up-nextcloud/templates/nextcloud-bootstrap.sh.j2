@@ -6,9 +6,6 @@ if [ ! -f "/var/www/{{ project_nextcloud_domain_name }}/nextcloud/config/BOOTSTR
   # Copy CAN_INSTALL file from bootstrapping directory to nextcloud/config (preserving ownsership)
   cp -p /usr/local/bootstrap/CAN_INSTALL /var/www/{{ project_nextcloud_domain_name }}/nextcloud/config/CAN_INSTALL
   
-  # Copy autoconfig.php from bootstrapping directory to nextcloud/config
-  #cp -p /usr/local/bootstrap/autoconfig.php /var/www/{{ project_nextcloud_domain_name }}/nextcloud/config/autoconfig.php
-  
   # Copy basic.config.php from bootstrapping directory to nextcloud/config
   cp -p /usr/local/bootstrap/basic.config.php /var/www/{{ project_nextcloud_domain_name }}/nextcloud/config/basic.config.php
   
@@ -22,7 +19,7 @@ if [ ! -f "/var/www/{{ project_nextcloud_domain_name }}/nextcloud/config/BOOTSTR
   chown -R www-data:www-data /var/www/{{ project_nextcloud_domain_name }}/nextcloud
   
   # Change ownership of the directory /var/www/{{ project_nextcloud_domain_name }}/nextcloud-data
-  chown www-data:www-data /var/www/{{ project_nextcloud_domain_name }}/nextcloud-data
+  chown -R www-data:www-data /var/www/{{ project_nextcloud_domain_name }}/nextcloud-data
   
   # Run occ maintenance:install to configure database, admin and data directory
   cd /var/www/{{ project_nextcloud_domain_name }}/nextcloud && sudo -u www-data php --define apc.enable_cli=1 occ maintenance:install --database="mysql" --database-name="nextcloud" --database-host="mariadb.service.ryo:3306" --database-user="nextcloud-db-user" --database-pass="{{ mariadb_nextcloud_user_password }}" --admin-user="{{ project_admin_username }}" --admin-pass="{{ project_admin_password }}" --data-dir="/var/www/{{ project_nextcloud_domain_name }}/nextcloud-data"
