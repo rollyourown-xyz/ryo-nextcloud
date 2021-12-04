@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Default project software versions
-nextcloud_version="22.2.2"
+nextcloud_version="22.2.3"
 
 # Script directory
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
