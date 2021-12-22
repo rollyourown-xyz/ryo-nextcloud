@@ -8,4 +8,4 @@ assignees: ''
 ---
 
 **Your feedback**
-Please add your question.
+Please add your feedback.
