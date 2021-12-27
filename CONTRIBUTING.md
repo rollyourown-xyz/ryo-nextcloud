@@ -10,9 +10,9 @@ We would be delighted if you would like to contribute and there are a number of 
 
 ### Raising security-related issues
 
-If you have found a security vulnerability in any rollyourown.xyz service or any of the rollyourown.xyz projects, modules or other repositories, please report it to [security@rollyourown.xyz](mailto:security@rollyourown.xyz).
+If you have found a security vulnerability in any rollyourown.xyz service or any of the rollyourown.xyz projects, modules or other repositories, please report it via our [security vulnerability report form](https://forms.rollyourown.xyz/security-vulnerability).
 
-For more information, see [our guide for raising security issues](https://rollyourown.xyz/collaborate/security_issues/).
+For more information, see [our guide for raising security vulnerabilities](https://rollyourown.xyz/collaborate/security_vulnerabilities/).
 
 ### Contributing bug reports, feature requests and ideas
 
