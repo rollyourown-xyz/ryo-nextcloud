@@ -16,9 +16,9 @@ For more information, see [our guide for raising security vulnerabilities](https
 
 ### Contributing bug reports, feature requests and ideas
 
-Report a bug or suggest an improvement for this project via the [Issues](https://github.com/rollyourown-xyz/ryo-nextcloud-standalone/issues). Before submitting an issue, please search the existing issues in case the topic has already been addressed.
+Report a bug or suggest an improvement for this project via the [Issues](https://rollyourown.xyz/collaborate/bug_reports_feature_requests_ideas/#raising-an-issue). Before submitting an issue, please search the existing issues in case the topic has already been addressed.
 
-In case of general feedback and ideas for rollyourown.xyz that are not specific to this or a different project or module, please use the Issues in the [general feedback repository](https://github.com/rollyourown-xyz/general-feedback/issues).
+In case of general feedback and ideas for rollyourown.xyz that are not specific to this or a different project or module, please use the Issues in the general feedback repository [on Codeberg](https://codeberg.org/rollyourown-xyz/general-feedback/issues) or [on GitHub](https://github.com/rollyourown-xyz/general-feedback/issues).
 
 Feedback to a different project or module should be submitted in the applicable repository.
 
@@ -26,7 +26,7 @@ For more information, see [our guide to contributing bug reports, feature reques
 
 ### Pull Requests
 
-If you would like to improve the code yourself, please first submit an [Issue](https://github.com/rollyourown-xyz/ryo-nextcloud-standalone/issues) describing what you would like to change and why.
+If you would like to improve the code yourself, please first submit an [Issue](https://rollyourown.xyz/collaborate/bug_reports_feature_requests_ideas/#raising-an-issue) describing what you would like to change and why.
 
 The project maintainer can then provide feedback on the proposal in advance of you doing any work. There may be a reason why your proposal would not be accepted, or should be realised differently, so this avoids you doing work which will end up not being accepted and merged into the code.
 
