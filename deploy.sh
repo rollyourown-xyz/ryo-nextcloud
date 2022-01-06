@@ -7,7 +7,7 @@
 PROJECT_ID="ryo-nextcloud-standalone"
 
 # Required modules (space-separated list in the form "module_1 module_2 module_3")
-MODULES="ryo-service-proxy ryo-mariadb ryo-wellknown"
+MODULES="ryo-ingress-proxy ryo-mariadb ryo-wellknown"
 
 # Script directory
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"

@@ -2,13 +2,13 @@
 ############################################
 
 module "deploy-nextcloud-haproxy-backend-service" {
-  source = "../../ryo-service-proxy/module-deployment/modules/deploy-haproxy-backend-services"
+  source = "../../ryo-ingress-proxy/module-deployment/modules/deploy-haproxy-backend-services"
 
   non_ssl_backend_services     = [ "nextcloud" ]
 }
 
 module "deploy-nextcloud-haproxy-acl-configuration" {
-  source = "../../ryo-service-proxy/module-deployment/modules/deploy-haproxy-configuration"
+  source = "../../ryo-ingress-proxy/module-deployment/modules/deploy-haproxy-configuration"
 
   depends_on = [ module.deploy-nextcloud-haproxy-backend-service ]
 
@@ -18,7 +18,7 @@ module "deploy-nextcloud-haproxy-acl-configuration" {
 }
 
 module "deploy-nextcloud-haproxy-backend-configuration" {
-  source = "../../ryo-service-proxy/module-deployment/modules/deploy-haproxy-configuration"
+  source = "../../ryo-ingress-proxy/module-deployment/modules/deploy-haproxy-configuration"
 
   depends_on = [ module.deploy-nextcloud-haproxy-acl-configuration ]
 
