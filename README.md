@@ -1,3 +1,3 @@
 # ryo-nextcloud
 
-Deploy a standalone nextcloud server using Ansible, Packer and Terraform.
+Deploy a Nextcloud server using Ansible, Packer and Terraform.
