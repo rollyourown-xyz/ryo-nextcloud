@@ -11,7 +11,7 @@
 
 # The project ID must be 15 characters or less and should be unique amongst
 # projects
-project_id: ryo-nextcloud-standalone
+project_id: ryo-nextcloud
 
 # Set the nextcloud server (sub)domain to be used for the project - for example nextcloud.example.com
 # The DNS A record for the nextcloud server (sub)domain must be set to point to the public IPv4 address

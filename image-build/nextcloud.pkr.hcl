@@ -1,5 +1,5 @@
 #------------------------------------------------------------------------------
-# Packer template for building LXD container image for ryo-nextcloud-standalone
+# Packer template for building LXD container image for ryo-nextcloud
 # Ubuntu minimal images are used as base images
 #------------------------------------------------------------------------------
 
