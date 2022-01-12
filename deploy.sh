@@ -1,19 +1,10 @@
 #!/bin/bash
 
 # deploy.sh
-# This script deploys the modules required for the project and the project components 
-
-# Project ID
-PROJECT_ID="ryo-nextcloud"
+# This script deploys the modules required for the project and deploys the project components 
 
 # Required modules (space-separated list in the form "module_1 module_2 module_3")
 MODULES="ryo-ingress-proxy ryo-mariadb ryo-wellknown"
-
-# Script directory
-SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
-
-# Info
-echo "rollyourown.xyz deployment script for "$PROJECT_ID""
 
 
 # Help and error messages
@@ -55,6 +46,17 @@ done
 if [ -z "$hostname" ] || [ -z "$version" ]; then
   errorMessage
 fi
+
+
+# Script directory
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+
+# Get Project ID from configuration file
+PROJECT_ID="$(yq eval '.project_id' "$SCRIPT_DIR"/configuration/configuration_"$hostname".yml)"
+
+
+# Info
+echo "rollyourown.xyz deployment script for "$PROJECT_ID""
 
 
 # Update project repository
