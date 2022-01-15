@@ -65,3 +65,23 @@ echo ""
 echo "Executing command: terraform -chdir="$SCRIPT_DIR"/../project-deployment apply -input=false -auto-approve -var \"host_id="$hostname"\" -var \"image_version="$version"\""
 terraform -chdir="$SCRIPT_DIR"/../project-deployment apply -input=false -auto-approve -var "host_id="$hostname"" -var "image_version="$version""
 echo "Completed"
+
+
+# Update ryo-host deployed-projects array for "$hostname"
+
+# Get Project ID from configuration file
+PROJECT_ID="$(yq eval '.project_id' "$SCRIPT_DIR"/../configuration/configuration_"$hostname".yml)"
+
+# Check existence of deployed-projects file and create it not existing
+if [ ! -f "$SCRIPT_DIR"/../../ryo-host/backup-restore/deployed-projects_"$hostname".yml ]
+then
+  cp "$SCRIPT_DIR"/../../ryo-host/backup-restore/deployed-projects_TEMPLATE.yml "$SCRIPT_DIR"/../../ryo-host/backup-restore/deployed-projects_"$hostname".yml
+fi
+
+# Add project to deployed-project array for "$hostname"
+if [ ! yq eval '. |= any_c(. == "$PROJECT_ID")' "$SCRIPT_DIR"/../../ryo-host/backup-restore/deployed-projects_"$hostname".yml ]
+  yq eval -i '. += "$PROJECT_ID"' "$SCRIPT_DIR"/../../ryo-host/backup-restore/deployed-projects_"$hostname".yml
+fi
+
+# Delete the null entry if it exists:
+yq eval -i 'del(.[] | select(. == null))' "$SCRIPT_DIR"/../../ryo-host/backup-restore/deployed-projects_"$hostname".yml
