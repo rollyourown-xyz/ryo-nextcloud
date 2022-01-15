@@ -80,6 +80,7 @@ fi
 
 # Add project to deployed-project array for "$hostname"
 if [ ! yq eval '. |= any_c(. == "$PROJECT_ID")' "$SCRIPT_DIR"/../../ryo-host/backup-restore/deployed-projects_"$hostname".yml ]
+then
   yq eval -i '. += "$PROJECT_ID"' "$SCRIPT_DIR"/../../ryo-host/backup-restore/deployed-projects_"$hostname".yml
 fi
 
