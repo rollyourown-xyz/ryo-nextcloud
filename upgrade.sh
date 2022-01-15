@@ -93,25 +93,24 @@ do
 
   if [ "$UPGRADE_MODULE" == "y" ]; then
     echo "Upgrading "$module" module."
-    # git pull module repository
+
+    # Update module repository
     echo ""
-    echo "Updating "$module" repository..."
-    /bin/bash "$SCRIPT_DIR"/scripts-modules/get-module.sh -m "$module"
+    echo "Refreshing "$module" repository with git pull"
+    cd "$SCRIPT_DIR"/../"$module" && git pull
+
+    # Run packer image build for module
     echo ""
-    echo ""$module" module repository updated."
-    # Run packer image build for modules
-    echo ""
-    echo "Building new image(s) for "$module" module on "$hostname"..."
-    /bin/bash "$SCRIPT_DIR"/scripts-modules/build-image-module.sh -n "$hostname" -v "$version" -m "$module"
-    echo ""
-    echo ""$module" module image build(s) completed on "$hostname"."
+    echo "Running build-images script for "$module" module on "$hostname" with version "$version""
+    "$SCRIPT_DIR"/../"$module"/scripts-module/build-images.sh -n "$hostname" -v "$version"
+
     # Deploy module
     echo ""
-    echo "Deploying new image(s) for "$module" module on "$hostname"..."
-    /bin/bash "$SCRIPT_DIR"/scripts-modules/deploy-module.sh -n "$hostname" -v "$version" -m "$module"
-    echo ""
-    echo ""$module" module deployment completed."
+    echo "Deploying image(s) "$module" module on "$hostname" using images with version "$version""
+    "$SCRIPT_DIR"/../"$module"/scripts-module/deploy-module.sh -n "$hostname" -v "$version"
+
   else
+    echo ""
     echo "Skipping "$module" module upgrade."
   fi
 done

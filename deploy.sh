@@ -85,30 +85,39 @@ elif [ "$DEPLOY_MODULES" == "y" ]; then
   echo "Deploying all modules."
   for module in $MODULES
   do
-    # Clone module repository
+
+    # Clone or update module
     echo ""
-    echo "Cloning "$module" repository..."
-    /bin/bash "$SCRIPT_DIR"/scripts-modules/get-module.sh -m "$module"
-    echo ""
-    echo ""$module" module repository cloned."
+    if [ -d ""$SCRIPT_DIR"/../"$module"" ]
+    then
+      echo "Module "$module" already cloned to this control node, refreshing with git pull"
+      cd "$SCRIPT_DIR"/../"$module" && git pull
+    else
+      echo "Cloning "$module" repository. Executing 'git clone' for "$module" repository"
+      #git clone https://github.com/rollyourown-xyz/"$module" "$SCRIPT_DIR"/../"$module"
+      git clone https://git.rollyourown.xyz/ryo-projects/"$module" "$SCRIPT_DIR"/../"$module"
+    fi
+
     # Run host setup playbooks for module
     echo ""
-    echo "Setting up host "$hostname" for "$module" module..."
-    /bin/bash "$SCRIPT_DIR"/scripts-modules/host-setup-module.sh -n "$hostname" -m "$module"
-    echo ""
-    echo "Host setup for "$module" module on "$hostname" completed."
+    if [ -f ""$SCRIPT_DIR"/../"$module"/configuration/"$hostname"_playbooks_executed" ]
+    then
+      echo "Host setup for "$module" module has already been done on "$hostname""
+    else
+      echo "Running module-specific host setup for "$module" on "$hostname""
+      "$SCRIPT_DIR"/../"$module"/scripts-module/host-setup.sh -n "$hostname"
+    fi
+
     # Run packer image build for module
     echo ""
-    echo "Building image(s) for "$module" module on "$hostname"..."
-    /bin/bash "$SCRIPT_DIR"/scripts-modules/build-image-module.sh -n "$hostname" -v "$version" -m "$module"
-    echo ""
-    echo ""$module" module image build(s) completed on "$hostname"."
+    echo "Running build-images script for "$module" module on "$hostname" with version "$version""
+    "$SCRIPT_DIR"/../"$module"/scripts-module/build-images.sh -n "$hostname" -v "$version"
+
     # Deploy module
     echo ""
-    echo "Deploying image(s) for "$module" module on "$hostname"..."
-    /bin/bash "$SCRIPT_DIR"/scripts-modules/deploy-module.sh -n "$hostname" -v "$version" -m "$module"
-    echo ""
-    echo ""$module" module deployment completed."
+    echo "Deploying image(s) "$module" module on "$hostname" using images with version "$version""
+    "$SCRIPT_DIR"/../"$module"/scripts-module/deploy-module.sh -n "$hostname" -v "$version"
+
   done
 
 else
@@ -137,30 +146,39 @@ else
     done
 
     if [ "$DEPLOY_MODULE" == "y" ]; then
-      # Clone module repository
+
+      # Clone or update module repository
       echo ""
-      echo "Cloning "$module" repository..."
-      /bin/bash "$SCRIPT_DIR"/scripts-modules/get-module.sh -m "$module"
-      echo ""
-      echo ""$module" module repository cloned."
+      if [ -d ""$SCRIPT_DIR"/../"$module"" ]
+      then
+        echo "Module "$module" already cloned to this control node, refreshing with git pull"
+        cd "$SCRIPT_DIR"/../"$module" && git pull
+      else
+        echo "Cloning "$module" repository. Executing 'git clone' for "$module" repository"
+        #git clone https://github.com/rollyourown-xyz/"$module" "$SCRIPT_DIR"/../"$module"
+        git clone https://git.rollyourown.xyz/ryo-projects/"$module" "$SCRIPT_DIR"/../"$module"
+      fi
+
       # Run host setup playbooks for module
       echo ""
-      echo "Setting up host "$hostname" for "$module" module..."
-      /bin/bash "$SCRIPT_DIR"/scripts-modules/host-setup-module.sh -n "$hostname" -m "$module"
-      echo ""
-      echo "Host setup for "$module" module on "$hostname" completed."
+      if [ -f ""$SCRIPT_DIR"/../"$module"/configuration/"$hostname"_playbooks_executed" ]
+      then
+        echo "Host setup for "$module" module has already been done on "$hostname""
+      else
+        echo "Running module-specific host setup for "$module" on "$hostname""
+        "$SCRIPT_DIR"/../"$module"/scripts-module/host-setup.sh -n "$hostname"
+      fi
+
       # Run packer image build for module
       echo ""
-      echo "Building image(s) for "$module" module on "$hostname"..."
-      /bin/bash "$SCRIPT_DIR"/scripts-modules/build-image-module.sh -n "$hostname" -v "$version" -m "$module"
-      echo ""
-      echo ""$module" module image build(s) completed on "$hostname"."
+      echo "Running build-images script for "$module" module on "$hostname" with version "$version""
+      "$SCRIPT_DIR"/../"$module"/scripts-module/build-images.sh -n "$hostname" -v "$version"
+
       # Deploy module
       echo ""
-      echo "Deploying image(s) for "$module" module on "$hostname"..."
-      /bin/bash "$SCRIPT_DIR"/scripts-modules/deploy-module.sh -n "$hostname" -v "$version" -m "$module"
-      echo ""
-      echo ""$module" module deployment completed."
+      echo "Deploying image(s) "$module" module on "$hostname" using images with version "$version""
+      "$SCRIPT_DIR"/../"$module"/scripts-module/deploy-module.sh -n "$hostname" -v "$version"
+
     else
       echo ""
       echo "Skipping "$module" module deployment."
