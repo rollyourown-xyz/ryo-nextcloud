@@ -40,16 +40,8 @@ fi
 
 # Run host setup playbooks for project
 echo ""
-echo ""
 echo "Running project-specific host setup on "$hostname""
-
-if [ -f ""$SCRIPT_DIR"/../configuration/"$hostname"_playbooks_executed" ]; then
-  echo ""
-  echo "Project-specific host setup has already been done on "$hostname""
-else
-  echo ""
-  echo "Executing project-specific host setup on "$hostname""
-  ansible-playbook -i "$SCRIPT_DIR"/../../ryo-host/configuration/inventory_"$hostname" "$SCRIPT_DIR"/../host-setup/main.yml --extra-vars "host_id="$hostname""
-  touch "$SCRIPT_DIR"/../configuration/"$hostname"_playbooks_executed
-  echo "Completed"
-fi
+echo ""
+echo "Executing project-specific host setup on "$hostname""
+ansible-playbook -i "$SCRIPT_DIR"/../../ryo-host/configuration/inventory_"$hostname" "$SCRIPT_DIR"/../host-setup/main.yml --extra-vars "host_id="$hostname""
+echo "Completed"
