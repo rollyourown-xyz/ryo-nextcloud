@@ -63,7 +63,7 @@ echo "rollyourown.xyz upgrade script for "$PROJECT_ID""
 ###########################
 
 echo "Refreshing project repository with git pull to get the current version"
-git pull
+cd "$SCRIPT_DIR" && git pull
 
 
 # Upgrade Modules
