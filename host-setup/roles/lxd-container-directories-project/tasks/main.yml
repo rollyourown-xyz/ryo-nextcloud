@@ -8,11 +8,23 @@
 ## Directories for project-specific LXD container persistent storage
 ## -----------------------------------------------------------------
 
-- name: Create a directory to mount in module containers
+- name: Create a directory to mount in project containers
   file:
     path: "/var/containers/{{ project_id }}"
     state: directory
     mode: '0755'
+
+
+## Copy README into top-level directory for project containers
+
+- name: Copy README
+  copy:
+    mode: 0644
+    owner: root
+    group: root
+    dest: "/var/containers/{{ project_id }}/README"
+    src: README
+    force: yes
 
 
 ### Nextcloud directories
