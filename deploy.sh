@@ -17,6 +17,7 @@ helpMessage()
   echo "Flags:"
   echo -e "-n hostname \t\t(Mandatory) Name of the host on which to deploy the project"
   echo -e "-v version \t\t(Mandatory) Version stamp for images to deploy, e.g. 20210101-1"
+  echo -r "-r \t\t\tRestore after system failure (should only be used during a restore after system failure)"
   echo -e "-s \t\t\tSkip module deployment (should only be used during a restore after system failure)"
   echo -e "-h \t\t\tPrint this help message"
   echo ""
@@ -34,13 +35,15 @@ errorMessage()
 # Command-line input handling
 #############################
 
+restore="false"
 skip_modules="false"
 
-while getopts n:v:sh flag
+while getopts n:v:rsh flag
 do
   case "${flag}" in
     n) hostname=${OPTARG};;
     v) version=${OPTARG};;
+    r) restore="true";;
     s) skip_modules="true";;
     h) helpMessage ;;
     ?) errorMessage ;;
@@ -66,9 +69,10 @@ echo "rollyourown.xyz deployment script for "$PROJECT_ID""
 # Update project repository
 ###########################
 
-echo "Refreshing project repository with git pull to ensure the current version"
-cd "$SCRIPT_DIR" && git pull
-
+if [ $restore == false ]; then
+  echo "Refreshing project repository with git pull to ensure the current version"
+  cd "$SCRIPT_DIR" && git pull
+fi
 
 # Deploy Modules
 ################
