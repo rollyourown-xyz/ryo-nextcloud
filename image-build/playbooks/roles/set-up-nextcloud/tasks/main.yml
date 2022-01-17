@@ -127,14 +127,14 @@
 
 # Copy autoconfig.php to bootstrapping directory
 #
-- name: Copy autoconfig.php
-  template:
-    mode: 0640
-    owner: www-data
-    group: www-data
-    dest: /usr/local/bootstrap/autoconfig.php
-    src: autoconfig.php.j2
-    force: yes
+# - name: Copy autoconfig.php
+#   template:
+#     mode: 0640
+#     owner: www-data
+#     group: www-data
+#     dest: /usr/local/bootstrap/autoconfig.php
+#     src: autoconfig.php.j2
+#     force: yes
 
 
 # Copy basic.config.php to bootstrapping directory
