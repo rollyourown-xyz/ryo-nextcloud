@@ -94,20 +94,10 @@ do
   if [ "$UPGRADE_MODULE" == "y" ]; then
     echo "Upgrading "$module" module."
 
-    # Update module repository
+    # Upgrade module
     echo ""
-    echo "Refreshing "$module" repository with git pull"
-    cd "$SCRIPT_DIR"/../"$module" && git pull
-
-    # Run packer image build for module
-    echo ""
-    echo "Running build-images script for "$module" module on "$hostname" with version "$version""
-    "$SCRIPT_DIR"/../"$module"/scripts-module/build-images.sh -n "$hostname" -v "$version"
-
-    # Deploy module
-    echo ""
-    echo "Deploying image(s) "$module" module on "$hostname" using images with version "$version""
-    "$SCRIPT_DIR"/../"$module"/scripts-module/deploy-module.sh -n "$hostname" -v "$version"
+    echo "Upgrading "$module" module on "$hostname" with version "$version""
+    /bin/bash "$SCRIPT_DIR"/../"$module"/upgrade.sh -n "$hostname" -v "$version"
 
   else
     echo ""
