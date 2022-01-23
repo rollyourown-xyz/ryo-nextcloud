@@ -4,6 +4,8 @@
 module "deploy-nextcloud-ingress-proxy-backend-service" {
   source = "../../ryo-ingress-proxy/module-deployment/modules/deploy-ingress-proxy-backend-services"
 
+  depends_on = [ lxd_container.nextcloud ]
+
   non_ssl_backend_services     = [ "nextcloud" ]
 }
 
