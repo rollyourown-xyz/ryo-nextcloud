@@ -38,6 +38,7 @@ then
 fi
 
 # Start project containers
+##########################
 
 echo ""
 echo "Starting project container..."
