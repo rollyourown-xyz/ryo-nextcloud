@@ -3,7 +3,7 @@
 
 resource "lxd_container" "nextcloud" {
 
-  depends_on = [ module.deploy-nextcloud-database-and-user ]
+  depends_on = [ module.deploy-nextcloud-cert-domains, module.deploy-nextcloud-database-and-user ]
   
   remote     = var.host_id
   name       = "nextcloud"
