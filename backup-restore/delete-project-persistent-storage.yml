@@ -1,5 +1,5 @@
 ---
-- name: Restore persistent storage from a backup for {{ project_id }} containers on {{ host_id }}
+- name: Delete persistent storage from a backup for {{ project_id }} containers on {{ host_id }}
   hosts: host_wireguard_ip
   
   vars_files:
@@ -22,7 +22,7 @@
   
   tasks:
 
-    - name: Remove persistent storage for {{ project_id }} containers on {{ host_id }}
+    - name: Delete persistent storage for {{ project_id }} containers on {{ host_id }}
       file:
         path: "/var/containers/{{ project_id }}"
         state: absent
