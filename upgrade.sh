@@ -66,6 +66,40 @@ echo "Refreshing project repository with git pull to get the current version"
 cd "$SCRIPT_DIR" && git pull
 
 
+# Option to back up the project before upgrading
+################################################
+
+echo " "
+echo "!!! An upgrade may fail and break your project deployment. "
+echo "!!! It is recommended to back up your project before upgrading. "
+echo " "
+echo "Do you want to create a backup of "$PROJECT_ID" on "$hostname" before upgrading? (y/n)"
+echo "Default is 'y'."
+echo -n "Back up "$PROJECT_ID" on "$hostname"? "
+read -e -p "[y/n]: " BACKUP_FIRST
+BACKUP_FIRST="${BACKUP_FIRST:-"y"}"
+BACKUP_FIRST="${BACKUP_FIRST,,}"
+
+# Check input
+while [ ! "$BACKUP_FIRST" == "y" ] && [ ! "$BACKUP_FIRST" == "n" ]
+do
+  echo "Invalid option "${BACKUP_FIRST}". Please try again."
+  echo -n "Back up "$PROJECT_ID" on "$hostname"? "
+  read -e -p "[y/n]: " BACKUP_FIRST
+  BACKUP_FIRST="${BACKUP_FIRST:-"y"}"
+  BACKUP_FIRST="${BACKUP_FIRST,,}"
+done
+
+if [ "$BACKUP_FIRST" == "y" ]; then
+  
+  # Get backup stamp as input
+  echo""
+  echo -n "Enter a stamp (e.g. date, time, name) to identify the backup"
+  read -e -p ": " BACKUP_STAMP
+  /bin/bash "$SCRIPT_DIR"/backup.sh -n "$hostname" -s "$BACKUP_STAMP"
+fi
+
+
 # Upgrade Modules
 #################
 
