@@ -1,1 +1,6 @@
+<!--
+SPDX-FileCopyrightText: 2022 Wilfred Nicoll <xyzroller@rollyourown.xyz>
+SPDX-License-Identifier: CC-BY-SA-4.0
+-->
+
 This irrelevant file enables backup/restore to execute without failure in case the module has no persistent storage.

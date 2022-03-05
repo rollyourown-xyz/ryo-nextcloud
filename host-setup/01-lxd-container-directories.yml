@@ -1,4 +1,7 @@
 ---
+# SPDX-FileCopyrightText: 2022 Wilfred Nicoll <xyzroller@rollyourown.xyz>
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 - name: Set up project-specific LXD container directories on the host
   hosts: host_wireguard_ip
   

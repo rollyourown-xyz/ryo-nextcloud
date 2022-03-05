@@ -1,4 +1,7 @@
 <?php
+// SPDX-FileCopyrightText: 2022 Nextcloud GmbH
+// SPDX-FileCopyrightText: 2022 Wilfred Nicoll <xyzroller@rollyourown.xyz>
+// SPDX-License-Identifier: AGPL-3.0-or-later
 $CONFIG = array (
   'mail_smtpmode' => 'smtp',
   'mail_smtpsecure' => {% if project_smtp_server_ssl %}'ssl'{% elif project_smtp_server_starttls %}'tls'{% else %}''{% endif %},

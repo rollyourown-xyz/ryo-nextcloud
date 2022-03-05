@@ -1,2 +1,5 @@
+# SPDX-FileCopyrightText: 2022 Wilfred Nicoll <xyzroller@rollyourown.xyz>
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 # Run cron.php every 5 minutes
 */5 * * * * www-data php --define apc.enable_cli=1 -f /var/www/{{ project_nextcloud_domain_name }}/nextcloud/cron.php

@@ -1,4 +1,7 @@
 ---
+# SPDX-FileCopyrightText: 2022 Wilfred Nicoll <xyzroller@rollyourown.xyz>
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 - name: Delete persistent storage from a backup for {{ project_id }} containers on {{ host_id }}
   hosts: host_wireguard_ip
   

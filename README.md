@@ -1,3 +1,8 @@
+<!--
+SPDX-FileCopyrightText: 2022 Wilfred Nicoll <xyzroller@rollyourown.xyz>
+SPDX-License-Identifier: CC-BY-SA-4.0
+-->
+
 # Roll Your Own Nextcloud Server
 
 This is a [rollyourown.xyz project](https://rollyourown.xyz/rollyourown/projects/) to deploy a [Nextcloud](https://nextcloud.com/) server using Ansible, Packer and Terraform.

@@ -1,3 +1,8 @@
+<!--
+SPDX-FileCopyrightText: 2022 Wilfred Nicoll <xyzroller@rollyourown.xyz>
+SPDX-License-Identifier: CC-BY-SA-4.0
+-->
+
 # Contributing
 
 Thank you for taking an interest in collaborating with us on the [rollyourown.xyz](https://rollyourown.xyz) project!

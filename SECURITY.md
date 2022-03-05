@@ -1,3 +1,8 @@
+<!--
+SPDX-FileCopyrightText: 2022 Wilfred Nicoll <xyzroller@rollyourown.xyz>
+SPDX-License-Identifier: CC-BY-SA-4.0
+-->
+
 # Security Policy
 
 Your ethical disclosure of any security vulnerability will be highly appreciated and we ask you to follow the practice of [responsible disclosure](https://en.wikipedia.org/wiki/Responsible_disclosure) when raising potential security vulnerabilities in rollyourown.xyz services, projects or modules.
