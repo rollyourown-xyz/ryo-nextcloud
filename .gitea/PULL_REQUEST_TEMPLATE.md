@@ -28,3 +28,5 @@ Before submitting the Pull Request, please check that you have done the followin
 - [ ] I was assigned to work on the Issue
 - [ ] I added a description of the changes made - see above
 - [ ] I tested the changes - ./deploy.sh and ./upgrade.sh work without error
+- [ ] I certify that I agree with the terms of the [Developer Certificate of Origin (DCO)](https://developercertificate.org/) and have the right to make this contribution
+- [ ] I have added or modified [SPDX](https://spdx.dev/) information where applicable
