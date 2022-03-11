@@ -83,3 +83,7 @@ The primary repository for this project is hosted on our own Git repository serv
 - [https://git.rollyourown.xyz/ryo-projects/ryo-nextcloud](https://git.rollyourown.xyz/ryo-projects/ryo-nextcloud)
 
 **Repositories on our own Git server are accessible only to members of our organisation**.
+
+## Copyright, Licences and Trademarks
+
+For information on copyright, licences and trademarks, see [https://rollyourown.xyz/about/copyright_licenses_trademarks/](https://rollyourown.xyz/about/copyright_licenses_trademarks/).
