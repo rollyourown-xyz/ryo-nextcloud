@@ -4,7 +4,7 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 # Default project software versions
-nextcloud_version="22.2.3"
+nextcloud_version="22.2.5"
 
 # Script directory
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
