@@ -36,3 +36,23 @@ If you would like to improve the code yourself, please first submit an [Issue](h
 The project maintainer can then provide feedback on the proposal in advance of you doing any work. There may be a reason why your proposal would not be accepted, or should be realised differently, so this avoids you doing work which will end up not being accepted and merged into the code.
 
 If, after discussing the change, you would like to proceed and implement it, then please fork this repository and submit a Pull Request. Please follow the workflow described on our website in [our guide to Forking and Pull Requests](https://rollyourown.xyz/collaborate/working_with_git/forking_and_pull_requests/).
+
+## Licensing
+
+We use [Software Package Data Exchange (SPDX)](https://spdx.dev/) licensing and copyright information in each source file in our repositories. We request any contributor to add SPDX information to any new file submitted and to include additional copyright information in modified files, where applicable.
+
+In addition, when submitting a Pull Request to our project we ask contributors to agree with the terms of the [Developer Certificate of Origin (DCO)](https://developercertificate.org/) to certify that the contributor has the right to make the contribution to our project. As well as ticking the checkbox in the Pull Request template, we recommend signing off each commit. To do this, configure your Git username and email address for the repository with:
+
+```console
+git config user.name "<USERNAME>"
+git config user.email "<EMAIL ADDRESS>"
+```
+
+or globally with:
+
+```console
+git config --global user.name "<USERNAME>"
+git config --global user.email "<EMAIL ADDRESS>"
+```
+
+Signoff is then automatic when using the `-s` flag with the `git commit` command.
