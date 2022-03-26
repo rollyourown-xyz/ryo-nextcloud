@@ -1,0 +1,15 @@
+# SPDX-FileCopyrightText: 2022 Wilfred Nicoll <xyzroller@rollyourown.xyz>
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+/var/www/{{ project_nextcloud_domain_name }}/nextcloud-data/nextcloud.log {
+    daily
+    rotate {{ nextcloud_log_deletion }}
+    create 644 www-data www-data
+    missingok
+    notifempty
+    compress
+    delaycompress
+    postrotate
+        /usr/lib/rsyslog/rsyslog-rotate
+    endscript
+}

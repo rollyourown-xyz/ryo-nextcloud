@@ -60,3 +60,11 @@ project_default_locale: en
 # Change the default country code for the nextcloud server, where the country code is
 # an ISO-3166-1 Alpha-2 code (e.g. "GB", "FR", "DE")
 project_default_country_code: GB
+
+
+#-------------------------------------------------
+# DEFAULT Configuration - change only if necessary
+#-------------------------------------------------
+
+# The number of days after which logs for nextcloud will be deleted
+nextcloud_log_deletion: 14

@@ -15,6 +15,18 @@
     force: yes
 
 
+# Copy nextcloud log rotation and deletion configuration
+#
+- name: Copy nextcloud log rotation and deletion configuration
+  template:
+    mode: 0644
+    owner: root
+    group: root
+    dest: /etc/logrotate.d/nextcloud
+    src: logrotate_nextcloud.j2
+    force: yes
+
+
 # Copy apache2.conf
 #
 - name: Copy apache2.conf
