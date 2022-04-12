@@ -1,0 +1,20 @@
+---
+# SPDX-FileCopyrightText: 2022 Wilfred Nicoll <xyzroller@rollyourown.xyz>
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+# Install nftables
+#
+- name: Install nftables
+  apt:
+    name: nftables
+    update_cache: yes
+    state: present
+
+
+# Enable and start nftables service
+#
+- name: Enable nftables service
+  service:
+    name: nftables.service
+    enabled: yes
+    state: started
