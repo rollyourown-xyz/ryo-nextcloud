@@ -56,7 +56,7 @@
   lineinfile:
     dest: /etc/systemd/resolved.conf
     regexp: '^#DNS='
-    line: "DNS=127.0.0.1"
+    line: "DNS=127.0.0.1 ::1"
 
 
 # Add Domains configuration
