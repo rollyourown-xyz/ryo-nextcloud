@@ -9,7 +9,7 @@ ConditionFileNotEmpty=/etc/consul.d/consul.hcl
 
 [Service]
 Type=exec
-ExecStart=/usr/bin/consul agent -config-dir=/etc/consul.d/ -retry-join={{ lxd_host_network_part }}.1
+ExecStart=/usr/bin/consul agent -config-dir=/etc/consul.d/
 ExecReload=/bin/kill --signal HUP $MAINPID
 ExecStop=/usr/bin/consul leave
 KillMode=process

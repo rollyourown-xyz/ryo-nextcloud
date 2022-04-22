@@ -6,10 +6,10 @@
 # Copy nftables configuration
 #
 - name: Copy nftables configuration
-  copy:
+  template:
     mode: 0770
     owner: root
     group: root
     dest: /etc/nftables.conf
-    src: nftables.conf
+    src: nftables.conf.j2
     force: yes

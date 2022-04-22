@@ -1,0 +1,118 @@
+#!/usr/sbin/nft -f
+# SPDX-FileCopyrightText: 2022 Wilfred Nicoll <xyzroller@rollyourown.xyz>
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+# Flush rules
+flush ruleset
+
+table inet filter {
+
+    chain inbound {
+
+        # By default, drop inbound traffic
+        type filter hook input priority filter; policy drop;
+
+        # Allow established and related connections
+        ct state established,related accept
+
+        # Drop invalid packets
+        ct state invalid drop
+
+        # Allow inbound traffic on loopback interface
+        iifname "lo" accept
+
+        # Allow ICMPv4
+        icmp type { echo-reply, destination-unreachable, echo-request, time-exceeded } accept
+
+        # Allow ICMPv6
+        icmpv6 type { destination-unreachable, packet-too-big, time-exceeded, parameter-problem, echo-request, echo-reply, nd-router-solicit, nd-router-advert, nd-neighbor-solicit, nd-neighbor-advert, ind-neighbor-solicit, ind-neighbor-advert} accept
+
+        # Allow IPv6 DHCPv6
+        udp dport dhcpv6-client accept
+
+
+        ## Consul Ports
+        ###############
+
+        # Allow Consul UDP ports from LXD host network
+        ip saddr {{ lxd_host_network_part }}.0/24 udp dport { 8301, 8302, 8600 } accept
+        {% if host_public_ipv6 == true %}ip6 saddr {{ host_public_ipv6_prefix }}::{{ lxd_host_network_ipv6_subnet }}:0/112 udp dport { 8301, 8302, 8600 } accept
+        {% else %}ip6 saddr {{ lxd_host_private_ipv6_prefix }}::{{ lxd_host_network_ipv6_subnet }}:0/112 udp dport { 8301, 8302, 8600 } accept
+        {% endif %}
+
+
+        # Allow Consul TCP ports from LXD host network
+        ip saddr {{ lxd_host_network_part }}.0/24 tcp dport { 8300, 8301, 8302, 8500, 8600 } accept
+        {% if host_public_ipv6 == true %}ip6 saddr {{ host_public_ipv6_prefix }}::{{ lxd_host_network_ipv6_subnet }}:0/112 tcp dport { 8300, 8301, 8302, 8500, 8600 } accept
+        {% else %}ip6 saddr {{ lxd_host_private_ipv6_prefix }}::{{ lxd_host_network_ipv6_subnet }}:0/112 tcp dport { 8300, 8301, 8302, 8500, 8600 } accept
+        {% endif%}
+
+
+        # Allow Consul UDP ports from control-node consul server
+        ip saddr {{ veth0_network_part }}.1/32 udp dport { 8301, 8302, 8600 } accept
+        ip6 saddr {{ veth0_network_ipv6_prefix }}::1/128 udp dport { 8301, 8302, 8600 } accept
+
+        # Allow Consul TCP ports from control-node consul server
+        ip saddr {{ veth0_network_part }}.1/32 tcp dport { 8300, 8301, 8302, 8500, 8600 } accept
+        ip6 saddr {{ veth0_network_ipv6_prefix }}::1/128 tcp dport { 8300, 8301, 8302, 8500, 8600 } accept
+
+        # Allow Consul UDP ports from wireguard network
+        ip saddr {{ wireguard_network_part }}.0/24 udp dport { 8301, 8302, 8600 } accept
+        ip6 saddr {{ wireguard_network_ipv6_prefix }}::/64 udp dport { 8301, 8302, 8600 } accept
+
+        # Allow Consul TCP ports from wireguard network
+        ip saddr {{ wireguard_network_part }}.0/24 tcp dport { 8300, 8301, 8302, 8500, 8600 } accept
+        ip6 saddr {{ wireguard_network_ipv6_prefix }}::/64 tcp dport { 8300, 8301, 8302, 8500, 8600 } accept
+
+
+        ## Nextcloud HTTP Rules
+        #######################
+
+        # Allow HTTP from wireguard and LXD networks
+        ip saddr {{ wireguard_network_part }}.0/24 tcp dport 80 accept
+        ip saddr {{ lxd_host_network_part }}.0/24 tcp dport 80 accept
+        ip6 saddr {{ wireguard_network_ipv6_prefix }}::/64 tcp dport 80 accept
+        {% if host_public_ipv6 == true %}ip6 saddr {{ host_public_ipv6_prefix }}::{{ lxd_host_network_ipv6_subnet }}:0/112 tcp dport 80 accept
+        {% else %}ip6 saddr {{ lxd_host_private_ipv6_prefix }}::{{ lxd_host_network_ipv6_subnet }}:0/112 tcp dport 80 accept
+        {% endif %}
+
+
+    }
+
+    chain forward {
+        # By default, drop forwarded traffic
+        type filter hook forward priority filter; policy drop;
+    }
+
+    chain outbound {
+        # By default, allow outbound traffic
+        type filter hook output priority filter; policy accept;
+
+        # Allow outbound traffic to loopback interface
+        oifname "lo" accept
+        oifname "lo" ip daddr != 127.0.0.0/8 drop
+        oifname "lo" ip6 daddr != ::1/128 drop
+    }
+}
+
+
+table inet nat {
+
+    chain prerouting {
+        type nat hook prerouting priority dstnat;
+    }
+
+    chain output {
+        type nat hook output priority filter;
+
+        # Map localhost DNS port 53 to Consul listening port
+        ip daddr 127.0.0.1 udp dport 53 redirect to 8600
+        ip daddr 127.0.0.1 tcp dport 53 redirect to 8600
+        ip6 daddr ::1/128 udp dport 53 redirect to 8600
+        ip6 daddr ::1/128 tcp dport 53 redirect to 8600
+    }
+
+    chain postrouting {
+        type nat hook postrouting priority srcnat;
+    }
+}

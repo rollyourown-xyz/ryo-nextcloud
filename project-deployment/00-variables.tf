@@ -42,24 +42,21 @@ locals {
 
 # LXD variables
 locals {
-  lxd_host_control_ipv4_address  = yamldecode(file(local.host_configuration))["host_control_ip"]
+  lxd_host_public_ipv6          = yamldecode(file(local.host_configuration))["host_public_ipv6"]
+  lxd_host_control_ipv4_address = yamldecode(file(local.host_configuration))["host_control_ip"]
   lxd_host_network_part         = yamldecode(file(local.host_configuration))["lxd_host_network_part"]
+  lxd_host_public_ipv6_address  = yamldecode(file(local.host_configuration))["host_public_ipv6_address"]
+  lxd_host_public_ipv6_prefix   = yamldecode(file(local.host_configuration))["host_public_ipv6_prefix"]
+  lxd_host_private_ipv6_prefix  = yamldecode(file(local.host_configuration))["lxd_host_private_ipv6_prefix"]
+  lxd_host_network_ipv6_subnet  = yamldecode(file(local.host_configuration))["lxd_host_network_ipv6_subnet"]
+}
+
+# Calculated variables
+locals {
+  lxd_host_ipv6_prefix = ( local.lxd_host_public_ipv6 == true ? local.lxd_host_public_ipv6_prefix : local.lxd_host_private_ipv6_prefix )
 }
 
 # Consul variables
 locals {
-  consul_ip_address  = join("", [ local.lxd_host_network_part, ".1" ])
-}
-
-# Variables from module remote states
-
-data "terraform_remote_state" "ryo-mariadb" {
-  backend = "local"
-  config = {
-    path = join("", ["${abspath(path.root)}/../../ryo-mariadb/module-deployment/terraform.tfstate.d/", var.host_id, "/terraform.tfstate"])
-  }
-}
-
-locals {
-  mariadb_ip_address = data.terraform_remote_state.ryo-mariadb.outputs.mariadb_ip_address
+  consul_ip_address  = join("", [ local.lxd_host_ipv6_prefix, "::", local.lxd_host_network_ipv6_subnet, ":1" ])
 }

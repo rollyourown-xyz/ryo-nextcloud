@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 - name: Set up project-specific LXD container directories on the host
-  hosts: host_wireguard_ip
+  hosts: host_wireguard_ip6
   
   vars_files:
       # Control node configuration

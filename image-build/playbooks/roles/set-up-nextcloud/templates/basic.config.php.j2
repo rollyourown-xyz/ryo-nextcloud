@@ -9,6 +9,10 @@ $CONFIG = array (
   ],
   'trusted_proxies' => [
     '{{ lxd_host_network_part }}.{{ ingress_proxy_ip_addr_host_part }}',
+    {% if host_public_ipv6 == true %}'{{ host_public_ipv6_prefix }}::{{ lxd_host_network_ipv6_subnet }}:{{ ingress_proxy_ip_addr_host_part }}',
+    {% else %}'{{ lxd_host_private_ipv6_prefix }}::{{ lxd_host_network_ipv6_subnet }}:{{ ingress_proxy_ip_addr_host_part }}',
+    {% endif %}
+
   ],
   'overwriteprotocol' => 'https',
   'overwrite.cli.url' => 'https://{{ project_nextcloud_domain_name }}/',

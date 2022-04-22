@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 - name: Restore persistent storage from a backup for {{ project_id }} containers on {{ host_id }}
-  hosts: host_wireguard_ip
+  hosts: host_wireguard_ip6
   
   vars_files:
     # Control node configuration

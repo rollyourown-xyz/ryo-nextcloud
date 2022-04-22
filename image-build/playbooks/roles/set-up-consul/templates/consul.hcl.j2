@@ -1,8 +1,25 @@
 # SPDX-FileCopyrightText: 2022 Wilfred Nicoll <xyzroller@rollyourown.xyz>
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-datacenter = "{{ host_id }}"
-data_dir   = "/opt/consul"
-server      = false
-client_addr = "0.0.0.0"
+datacenter  = "{{ host_id }}"
+data_dir    = "/opt/consul"
 domain      = "ryo"
+
+server      = false
+
+{% if host_public_ipv6 == true %}client_addr = "[::]"
+{% else %}client_addr = "0.0.0.0"
+{% endif %}
+
+
+{% if host_public_ipv6 == true %}bind_addr = "[::]"
+{% else %}bind_addr = "0.0.0.0"
+{% endif %}
+
+
+{% if host_public_ipv6 == true %}retry_join = [ "{{ host_public_ipv6_prefix }}::{{lxd_host_network_ipv6_subnet}}:1" ]
+{% else %}retry_join = [ "{{ lxd_host_private_ipv6_prefix }}::{{lxd_host_network_ipv6_subnet}}:1" ]
+{% endif %}
+
+
+retry_interval = "10s"

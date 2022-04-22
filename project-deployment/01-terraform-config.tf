@@ -39,13 +39,13 @@ provider "lxd" {
 }
 
 provider "consul" {
-  address    = join("", [ local.consul_ip_address, ":8500" ])
+  address    = join("", [ "[", local.consul_ip_address, "]", ":8500" ])
   scheme     = "http"
   datacenter = var.host_id
 }
 
 provider "mysql" {
-  endpoint = join("", [ local.mariadb_ip_address, ":3306" ])
+  endpoint = join("", [ "mariadb.service.", var.host_id, ".ryo", ":3306" ])
   username = "terraform"
   password = local.mariadb_terraform_user_password
 }
