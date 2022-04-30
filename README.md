@@ -19,7 +19,7 @@ In summary, to deploy a project:
 
 1. Acquire [a domain](https://rollyourown.xyz/rollyourown/how_to_use/deploy/#a-domain) to use for your project, or re-use a domain you already own
 
-2. Prepare a [control node](https://rollyourown.xyz/rollyourown/how_to_use/control_node/) with the basic software to run the [rollyourown.xyz](https://rollyourown.xyz) automation scripts, or use an existing control node you have previously set up
+2. Prepare a [control node](https://rollyourown.xyz/rollyourown/how_to_use/control_node/) with the basic software to run the rollyourown automation scripts, or use an existing control node you have previously set up
 
 3. Prepare a [host server](https://rollyourown.xyz/rollyourown/how_to_use/host_server/) for deploying the project to, or use an existing host server you have previously set up
 
@@ -46,13 +46,13 @@ In summary, to deploy a project:
 
 ## How to Collaborate
 
-We would be delighted if you would like to contribute to [rollyourown.xyz](https://rollyourown.xyz) and there are a number of ways you can collaborate on this project:
+We would be delighted if you would like to contribute to rollyourown and there are a number of ways you can collaborate on this project:
 
 - [Raising security-related issues](https://rollyourown.xyz/collaborate/security_vulnerabilities/)
 - [Contributing bug reports, feature requests and ideas](https://rollyourown.xyz/collaborate/bug_reports_feature_requests_ideas/)
 - [Improving the project](https://rollyourown.xyz/collaborate/existing_projects_and_modules/) - e.g. to provide fixes or enhancements
 
-You may also like to contribute to the wider [rollyourown.xyz](https://rollyourown.xyz/) project by, for example:
+You may also like to contribute to the wider rollyourown project by, for example:
 
 - [Contributing a new project or module](https://rollyourown.xyz/collaborate/new_projects_and_modules/)
 - [Contributing to the rollyourown.xyz website content](https://rollyourown.xyz/collaborate/website_content/) or [design](https://rollyourown.xyz/collaborate/website_design/)
@@ -65,7 +65,7 @@ Issues for this project can be submitted on [Codeberg](https://codeberg.org/) (_
 
 ## Security Vulnerabilities
 
-If you have found a security vulnerability in any [rollyourown.xyz](https://rollyourown.xyz/) service or any of the [rollyourown.xyz](https://rollyourown.xyz/) projects, modules or other repositories, please read our [security disclosure policy](https://rollyourown.xyz/collaborate/security_vulnerabilities/) and report this via our [security vulnerability report form](https://forms.rollyourown.xyz/security-vulnerability).
+If you have found a security vulnerability in any rollyourown service or any of the rollyourown projects, modules or other repositories, please read our [security disclosure policy](https://rollyourown.xyz/collaborate/security_vulnerabilities/) and report this via our [security vulnerability report form](https://forms.rollyourown.xyz/security-vulnerability).
 
 ## Repository Links
 

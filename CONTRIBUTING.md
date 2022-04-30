@@ -5,7 +5,7 @@ SPDX-License-Identifier: CC-BY-SA-4.0
 
 # Contributing
 
-Thank you for taking an interest in collaborating with us on the [rollyourown.xyz](https://rollyourown.xyz) project!
+Thank you for taking an interest in collaborating with us on the rollyourown project!
 
 Code and content of the rollyourown.xyz project is stored in our public repositories and collaboration is organised around these. We use the Issue tracking features to raise, discuss and track ideas, feature requests and bugs. We use forking and pull requests to manage changes to code and content.
 
