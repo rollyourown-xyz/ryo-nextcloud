@@ -5,7 +5,7 @@ SPDX-License-Identifier: CC-BY-SA-4.0
 
 # Roll Your Own Nextcloud Server
 
-This is a [rollyourown.xyz project](https://rollyourown.xyz/rollyourown/projects/) to deploy a [Nextcloud](https://nextcloud.com/) server using Ansible, Packer and Terraform.
+This is a [rollyourown project](https://rollyourown.xyz/rollyourown/projects/) to deploy a [Nextcloud](https://nextcloud.com/) server using Ansible, Packer and Terraform.
 
 ## Project Summary
 
@@ -13,7 +13,7 @@ This project uses [Ansible](https://www.ansible.com/), [Packer](https://www.pack
 
 ## How to Use
 
-A detailed description of how to use a rollyourown.xyz project to deploy and maintain an open source solution can be found [on the rollyourown.xyz website](https://rollyourown.xyz/rollyourown/how_to_use/).
+A detailed description of how to use a rollyourown project to deploy and maintain an open source solution can be found [on the rollyourown website](https://rollyourown.xyz/rollyourown/how_to_use/).
 
 In summary, to deploy a project:
 
@@ -55,8 +55,8 @@ We would be delighted if you would like to contribute to rollyourown and there a
 You may also like to contribute to the wider rollyourown project by, for example:
 
 - [Contributing a new project or module](https://rollyourown.xyz/collaborate/new_projects_and_modules/)
-- [Contributing to the rollyourown.xyz website content](https://rollyourown.xyz/collaborate/website_content/) or [design](https://rollyourown.xyz/collaborate/website_design/)
-- [Maintaining a rollyourown.xyz repository](https://rollyourown.xyz/collaborate/working_with_git/what_is_git/#project-maintainer)
+- [Contributing to the rollyourown website content](https://rollyourown.xyz/collaborate/website_content/) or [design](https://rollyourown.xyz/collaborate/website_design/)
+- [Maintaining a rollyourown repository](https://rollyourown.xyz/collaborate/working_with_git/what_is_git/#project-maintainer)
 
 Issues for this project can be submitted on [Codeberg](https://codeberg.org/) (_preferred_) or [GitHub](https://github.com/):
 
