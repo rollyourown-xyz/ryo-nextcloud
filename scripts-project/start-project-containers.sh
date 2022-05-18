@@ -8,7 +8,7 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
 helpMessage()
 {
-  echo "start-project-containers.sh: Stop the containers of a rollyourown.xyz project"
+  echo "start-project-containers.sh: Stop the containers of a rollyourown project"
   echo ""
   echo "Help: start-project-containers.sh"
   echo "Usage: ./start-project-containers.sh -n hostname -m mode"

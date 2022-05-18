@@ -15,7 +15,7 @@ MODULES="ryo-ingress-proxy ryo-mariadb ryo-wellknown"
 
 helpMessage()
 {
-  echo "rollback.sh: Deploy a rollyourown.xyz project"
+  echo "rollback.sh: Deploy a rollyourown project"
   echo "Usage: ./rollback.sh -n hostname"
   echo "Flags:"
   echo -e "-n hostname \t\t(Mandatory) Name of the host on which to deploy the project"
@@ -57,7 +57,7 @@ PROJECT_ID="$(yq eval '.project_id' "$SCRIPT_DIR"/configuration/configuration_"$
 
 
 # Info
-echo "rollyourown.xyz rollback script for "$PROJECT_ID""
+echo "rollyourown rollback script for "$PROJECT_ID""
 
 
 # Roll back modules

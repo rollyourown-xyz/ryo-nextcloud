@@ -8,7 +8,7 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
 helpMessage()
 {
-  echo "delete-project-containers.sh: Delete the containers of a rollyourown.xyz project"
+  echo "delete-project-containers.sh: Delete the containers of a rollyourown project"
   echo ""
   echo "Help: delete-project-containers.sh"
   echo "Usage: ./delete-project-containers.sh -n hostname"
