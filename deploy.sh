@@ -64,6 +64,9 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 # Get Project ID from configuration file
 PROJECT_ID="$(yq eval '.project_id' "$SCRIPT_DIR"/configuration/configuration_"$hostname".yml)"
 
+# Get remote_build variable from configuration file
+REMOTE="$(yq eval '.remote_build' "$SCRIPT_DIR"/configuration/configuration_"$hostname".yml)"
+
 
 # Info
 echo "rollyourown deployment script for "$PROJECT_ID""
@@ -114,7 +117,7 @@ if [ $skip_modules == false ]; then
       # Deploy module
       echo ""
       echo "Deploying "$module" module on "$hostname" with version "$version""
-      /bin/bash "$SCRIPT_DIR"/../"$module"/deploy.sh -n "$hostname" -v "$version"
+      /bin/bash "$SCRIPT_DIR"/../"$module"/deploy.sh -n "$hostname" -v "$version" -b "$REMOTE"
 
     done
 
@@ -159,7 +162,7 @@ if [ $skip_modules == false ]; then
         # Deploy module
         echo ""
         echo "Deploying "$module" module on "$hostname" with version "$version""
-        /bin/bash "$SCRIPT_DIR"/../"$module"/deploy.sh -n "$hostname" -v "$version"
+        /bin/bash "$SCRIPT_DIR"/../"$module"/deploy.sh -n "$hostname" -v "$version" -b "$REMOTE"
 
       else
         echo ""
@@ -180,7 +183,7 @@ echo "Running project-specific host setup for "$PROJECT_ID" on "$hostname""
 # Build project images
 echo ""
 echo "Running image build for "$PROJECT_ID" on "$hostname""
-/bin/bash "$SCRIPT_DIR"/scripts-project/build-image-project.sh -n "$hostname" -v "$version"
+/bin/bash "$SCRIPT_DIR"/scripts-project/build-image-project.sh -n "$hostname" -v "$version" -r "$REMOTE"
 
 # Deploy project containers
 echo ""

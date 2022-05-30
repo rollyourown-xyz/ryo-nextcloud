@@ -57,6 +57,9 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 # Get Project ID from configuration file
 PROJECT_ID="$(yq eval '.project_id' "$SCRIPT_DIR"/configuration/configuration_"$hostname".yml)"
 
+# Get remote_build variable from configuration file
+REMOTE="$(yq eval '.remote_build' "$SCRIPT_DIR"/configuration/configuration_"$hostname".yml)"
+
 
 # Info
 echo "rollyourown upgrade script for "$PROJECT_ID""
@@ -134,7 +137,7 @@ do
     # Upgrade module
     echo ""
     echo "Upgrading "$module" module on "$hostname" with version "$version""
-    /bin/bash "$SCRIPT_DIR"/../"$module"/upgrade.sh -n "$hostname" -v "$version"
+    /bin/bash "$SCRIPT_DIR"/../"$module"/upgrade.sh -n "$hostname" -v "$version" -b "$REMOTE"
 
   else
     echo ""
@@ -149,7 +152,7 @@ done
 # Build new project images
 echo ""
 echo "Building new image(s) for "$PROJECT_ID" on "$hostname""
-/bin/bash "$SCRIPT_DIR"/scripts-project/build-image-project.sh -n "$hostname" -v "$version"
+/bin/bash "$SCRIPT_DIR"/scripts-project/build-image-project.sh -n "$hostname" -v "$version" -r "$REMOTE"
 
 # Deploy project containers
 echo ""
