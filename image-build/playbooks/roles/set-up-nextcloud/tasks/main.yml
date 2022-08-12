@@ -274,7 +274,7 @@
   lineinfile:
     dest: /etc/php/7.4/apache2/php.ini
     regexp: '^;opcache.interned_strings_buffer'
-    line: "opcache.interned_strings_buffer=8"
+    line: "opcache.interned_strings_buffer=64"
     state: present
 
 - name: Change opcache.max_accelerated_files in apache php configuration 
